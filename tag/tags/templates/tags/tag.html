@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+
+  <h1> {{ tagheadline }} </h1>
+  <h1> {{ tagowner }} </h1>
+  <p>Streak: {{ tagstreak }}</h1>
+  <form method = "POST">{% csrf_token %}
+    {{form.as_p}}
+  <button type = "submit">Create Tag</button>
+  </form>
+</body>
+</html>

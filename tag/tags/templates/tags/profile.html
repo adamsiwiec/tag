@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+  <title>{{ username }}</title>
+</head>
+<body>
+  {{ response }}
+  {% for x,y in lists,idlist %}
+    <p><a href="{% url 'taghomepage' tagid = y %}">{{ x }}</a></p>
+  {% endfor %}
+  <h1> Create a Tag: </h1>
+  <form method = "POST">{% csrf_token %}
+    {{form.as_p}}
+  <button type = "submit">Create Tag</button>
+  </form>
+</body>
+</html>
