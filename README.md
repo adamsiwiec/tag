@@ -1,5 +1,6 @@
 # tag
-A social network for tagging. Create and pass on unique tags to your friends
+A social network for tagging. Create and pass on unique tags to your friends.
+
 Please Note: This is not ready for deployment yet.
 
 To run:
