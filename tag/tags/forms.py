@@ -2,11 +2,13 @@ from django import forms
 from django.contrib.auth.forms import *
 from .models import *
 
-class UserCreate(forms.ModelForm):
-    password = forms.CharField(widget = forms.PasswordInput)
+class UserCreate(UserCreationForm):
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    email = forms.EmailField(max_length=75)
     class Meta:
         model = User
-        fields = ('first_name', 'last_name','username', 'email', 'password')
+        fields = ('first_name', 'last_name','username', 'email',)
 
 class LoginForm(forms.ModelForm):
     username = forms.CharField(label="Username", max_length = 301)

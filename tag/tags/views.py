@@ -69,16 +69,15 @@ def sign_up(request):
 
         error = ""
         if request.method == "POST":
-            form = UserCreationForm(request.POST)
+            form = UserCreate(request.POST)
             if form.is_valid():
                 user = form.save(commit=False)
                 user.save()
                 return redirect('login')
             else:
-                
                 return render(request, 'tags/sign_up.html', {'form':form, 'error':error})
         else:
-            form = UserCreationForm()
+            form = UserCreate()
             return render(request, 'tags/sign_up.html', {'form':form, 'error':error})
 
 
