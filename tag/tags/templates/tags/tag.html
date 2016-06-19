@@ -10,7 +10,7 @@
   <p>Streak: {{ tagstreak }}</h1>
   <form method = "POST">{% csrf_token %}
     {{form.as_p}}
-  <button type = "submit">Create Tag</button>
+  {{ formbutton | safe }}
   </form>
 </body>
 </html>

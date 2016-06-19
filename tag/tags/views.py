@@ -12,19 +12,25 @@ def tagpage(request, tagid):
     tagheadline = tag.name
     tagstreak = tag.streak
     tagowner = tag.owner
-    if request.method == "POST":
-        form = PassForm(request.POST)
-        if form.is_valid():
-            person = request.POST['username']
-            PersonObject = User.objects.get(username = person)
-            tag.owner = PersonObject
-            tag.streak += 1
-            tag.save()
-            return HttpResponse("Success")
+    if tag.owner == request.user:
+        if request.method == "POST":
+            form = PassForm(request.POST)
+            if form.is_valid():
+                person = request.POST['username']
+                PersonObject = User.objects.get(username = person)
+                tag.owner = PersonObject
+                tag.streak += 1
+                tag.created = timezone.now()
+                tag.save()
+                return redirect('taghomepage', tagid = tagid)
+        else:
+            form = PassForm()
+            formbutton = '<button type = "submit">Create Tag</button>'
+            return render(request, 'tags/tag.html', { 'tagheadline':tagheadline, 'tagstreak':tagstreak, 'tagowner': tagowner, 'form':form, 'formbutton': formbutton})
     else:
-        form = PassForm()
-        return render(request, 'tags/tag.html', { 'tagheadline':tagheadline, 'tagstreak':tagstreak, 'tagowner': tagowner, 'form':form})
-
+        form = ""
+        formbutton = ""
+        return render(request, 'tags/tag.html', { 'tagheadline':tagheadline, 'tagstreak':tagstreak, 'tagowner': tagowner, 'form':form, 'formbutton': formbutton})
 
 
 def homepage(request):
