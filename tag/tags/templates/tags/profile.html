@@ -5,8 +5,8 @@
 </head>
 <body>
   {{ response }}
-  {% for x,y in lists,idlist %}
-    <p><a href="{% url 'taghomepage' tagid = y %}">{{ x }}</a></p>
+  {% for x in alltogether %}
+  <p><a href = "{% url 'taghomepage' x.1 %}">{{ x.0 }}</a></p>
   {% endfor %}
   <h1> Create a Tag: </h1>
   <form method = "POST">{% csrf_token %}

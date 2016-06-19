@@ -35,14 +35,21 @@ def homepage(request):
 def user_homepage(request):
 
         Tags = Tag.objects.filter(owner__username = request.user.username)
-        sumthing = list(Tags.order_by())
-        idlist = []
-        for sum in sumthing:
-            idlist.append(sum.id)
-        for x in range(idlist):
-            sumthing[x].append(idlist[x])
-        tuplelist = ", ".join(str(v) for v in sumthing)
-        lists = tuplelist
+
+        tagslist = list(Tags.order_by())
+        taglink = []
+        for x in tagslist:
+            taglink.append(x.id)
+        alltogether = []
+        for x in range(0,len(tagslist)):
+            alltogether.append([])
+            alltogether[x].append(tagslist[x])
+            alltogether[x].append(taglink[x])
+
+
+        lists = ", ".join(str(v) for v in tagslist)
+
+
         user = User.objects.get(username = request.user.username)
         response = "This is {} homepage. He/She's email is {} and his tags are: ".format(user.username,user.email,)
         if request.method == "POST":
@@ -54,8 +61,8 @@ def user_homepage(request):
                 return redirect('profile')
         else:
             form = TagForm()
-            return render(request, 'tags/profile.html', {'response': response, 'username': request.user.username, 'form':form, 'lists': lists, 'idlist': idlist})
-        return render(request, "tags/profile.html", {'response': response, 'username': request.user.username, 'form':form, 'lists': lists, 'idlist': idlist})
+            return render(request, 'tags/profile.html', {'response': response, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+        return render(request, "tags/profile.html", {'response': response, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
 
 
 def sign_up(request):
