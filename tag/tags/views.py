@@ -66,15 +66,20 @@ def user_homepage(request):
 
 
 def sign_up(request):
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-        return render(request, 'tags/sign_up.html', {'form':form})
+
+        error = ""
+        if request.method == "POST":
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.save()
+                return redirect('login')
+            else:
+                
+                return render(request, 'tags/sign_up.html', {'form':form, 'error':error})
+        else:
+            form = UserCreationForm()
+            return render(request, 'tags/sign_up.html', {'form':form, 'error':error})
 
 
 def loginuser(request):
