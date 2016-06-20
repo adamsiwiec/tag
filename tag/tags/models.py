@@ -14,6 +14,7 @@ class LoginUser(models.Model):
     password = models.CharField(max_length = 300)
 
 class Friendship(models.Model):
+    created = models.DateTimeField(default = timezone.now)
     creator = models.ForeignKey(User, related_name = 'creator')
     friend = models.ForeignKey(User, related_name = 'friend')
     def __str__(self):

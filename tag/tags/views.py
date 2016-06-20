@@ -6,6 +6,8 @@ from .forms import *
 from .models import *
 from django.utils import timezone
 import datetime
+
+
 def addfriends(request):
     if request.method == "POST":
         form = FriendshipForm(request.POST)
@@ -61,6 +63,10 @@ def user_homepage(request):
         friendslist = list(Friends.order_by())
         tagslist = list(Tags.order_by())
         taglink = []
+        newfriends = Friendship.objects.filter(creator__username = request.user.username, created__gte = timezone.now() - datetime.timedelta(days = 2))
+        newfriendslist = list(newfriends.order_by())
+        if len(newfriendslist) > 10:
+            newfriendslist = ["You have over 10 new friends"]
         for x in tagslist:
             taglink.append(x.id)
         alltogether = []
@@ -84,7 +90,7 @@ def user_homepage(request):
                 return redirect('profile')
         else:
             form = TagForm()
-            return render(request, 'tags/profile.html', {'friendslist': friendslist, 'response': response, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+            return render(request, 'tags/profile.html', {'newfriendslist':newfriendslist, 'friendslist': friendslist, 'response': response, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
 
 
 
@@ -102,20 +108,3 @@ def sign_up(request):
         else:
             form = UserCreate()
             return render(request, 'tags/sign_up.html', {'form':form, 'error':error})
-
-
-def loginuser(request):
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-
-            auth = authenticate(username = request.POST['username'], password = request.POST['password'])
-            if auth:
-                login(request, auth)
-                return redirect('homepage', username = request.POST['username'])
-            else:
-                return render(request, 'tags/loginfail.html', {'form': form})
-    else:
-        form = LoginForm()
-
-    return render(request, 'tags/login.html', {'form': form})

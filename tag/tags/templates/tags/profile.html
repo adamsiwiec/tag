@@ -5,6 +5,11 @@
 </head>
 <body>
   {{ response }}
+  <h1>New friends:</h1>
+  {% for z in friendslist %}
+  <p>{{ z }}</p>
+  {% endfor %}
+  <h1> Your Tags: </h1>
   {% for x in alltogether %}
   <p><a href = "{% url 'taghomepage' x.1 %}">{{ x.0 }}</a></p>
   {% endfor %}
