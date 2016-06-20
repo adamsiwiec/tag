@@ -5,7 +5,8 @@ urlpatterns = [
 url(r'^$', homeviews.homepage, name = "home"),
 url(r'^accounts/profile/', homeviews.user_homepage, name = "profile"),
 url(r'^signup/', homeviews.sign_up, name = "sign_up"),
-url(r'^users/(?P<username>[\w]+)/', homeviews.user_homepage, name = "homepage"),
+url(r'^users/(?P<username>[\w]+)/', homeviews.view_homepage, name = "homepage"),
 url(r'^tags/(?P<tagid>[\w]+)/', homeviews.tagpage, name = "taghomepage"),
 url(r'^addfriends/', homeviews.addfriends, name = "addfriends"),
+url(r'^removefriend/(?P<removevar>[\w]+)/', homeviews.removefriend, name = "removefriend" )
 ]

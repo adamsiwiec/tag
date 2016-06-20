@@ -6,6 +6,44 @@ from .forms import *
 from .models import *
 from django.utils import timezone
 import datetime
+def removefriend(request, removevar):
+    try:
+        removefriendship = Friendship.objects.get(friend__username = removevar , creator__username = request.user.username)
+        removefriendship.delete()
+        return redirect('profile')
+    except:
+        return redirect('profile')
+
+
+def view_homepage(request, username):
+    if username == request.user.username:
+        return redirect('profile')
+    Tags = Tag.objects.filter(owner__username = request.user.username)
+    Friends = Friendship.objects.filter(creator__username = request.user.username)
+    friendslist = list(Friends.order_by())
+    tagslist = list(Tags.order_by())
+    taglink = []
+    newfriends = Friendship.objects.filter(creator__username = request.user.username, created__gte = timezone.now() - datetime.timedelta(days = 2))
+    newfriendslist = list(newfriends.order_by())
+    if len(newfriendslist) > 8:
+        newfriendslist = ["You have over 8 new friends"]
+    for x in tagslist:
+        taglink.append(x.id)
+    alltogether = []
+    for x in range(0,len(tagslist)):
+        alltogether.append([])
+        alltogether[x].append(tagslist[x])
+        alltogether[x].append(taglink[x])
+
+
+    lists = ", ".join(str(v) for v in tagslist)
+
+
+    user1 = User.objects.get(username = username)
+    name = user1.first_name + " " + user1.last_name
+
+    return render(request, 'tags/viewprofile.html', {'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'username1':username,  'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+
 
 
 def addfriends(request):
@@ -56,6 +94,7 @@ def homepage(request):
     oldtags.delete()
     return render(request, "tags/homepage.html")
 
+
 def user_homepage(request):
 
         Tags = Tag.objects.filter(owner__username = request.user.username)
@@ -65,8 +104,8 @@ def user_homepage(request):
         taglink = []
         newfriends = Friendship.objects.filter(creator__username = request.user.username, created__gte = timezone.now() - datetime.timedelta(days = 2))
         newfriendslist = list(newfriends.order_by())
-        if len(newfriendslist) > 10:
-            newfriendslist = ["You have over 10 new friends"]
+        if len(newfriendslist) > 8:
+            newfriendslist = ["You have over 8 new friends"]
         for x in tagslist:
             taglink.append(x.id)
         alltogether = []
@@ -80,7 +119,7 @@ def user_homepage(request):
 
 
         user = User.objects.get(username = request.user.username)
-        response = "This is {} homepage. He/She's email is {} and his tags are: ".format(user.username,user.email,)
+        name = user.first_name + " " + user.last_name
         if request.method == "POST":
             form = TagForm(request.POST)
             if form.is_valid():
@@ -90,7 +129,7 @@ def user_homepage(request):
                 return redirect('profile')
         else:
             form = TagForm()
-            return render(request, 'tags/profile.html', {'newfriendslist':newfriendslist, 'friendslist': friendslist, 'response': response, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+            return render(request, 'tags/profile.html', {'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
 
 
 

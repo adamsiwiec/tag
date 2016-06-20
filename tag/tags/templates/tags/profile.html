@@ -1,10 +1,10 @@
 <!doctype html>
 <html>
 <head>
-  <title>{{ username }}</title>
+  <title>{{ username }} | Tag </title>
 </head>
 <body>
-  {{ response }}
+  <p> Welcome {{ name }}</p>
   <h1>New friends:</h1>
   {% for z in friendslist %}
   <p>{{ z }}</p>
@@ -16,7 +16,7 @@
   <h1>Your Friends:</h1>
   <h3><a href = "{% url 'addfriends' %}">Add Friends</a></h3>
   {% for y in friendslist %}
-  <p> {{ y }} </p>
+  <p><a href = "{% url 'homepage' y %}"> {{ y }} </a></p>
   {% endfor %}
   <h1> Create a Tag: </h1>
   <form method = "POST">{% csrf_token %}
