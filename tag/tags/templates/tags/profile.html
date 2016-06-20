@@ -8,6 +8,11 @@
   {% for x in alltogether %}
   <p><a href = "{% url 'taghomepage' x.1 %}">{{ x.0 }}</a></p>
   {% endfor %}
+  <h1>Your Friends:</h1>
+  <h3><a href = "{% url 'addfriends' %}">Add Friends</a></h3>
+  {% for y in friendslist %}
+  <p> {{ y }} </p>
+  {% endfor %}
   <h1> Create a Tag: </h1>
   <form method = "POST">{% csrf_token %}
     {{form.as_p}}

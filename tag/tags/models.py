@@ -12,3 +12,9 @@ class Tag(models.Model):
 class LoginUser(models.Model):
     username = models.CharField(max_length = 301)
     password = models.CharField(max_length = 300)
+
+class Friendship(models.Model):
+    creator = models.ForeignKey(User, related_name = 'creator')
+    friend = models.ForeignKey(User, related_name = 'friend')
+    def __str__(self):
+        return self.friend.username

@@ -28,3 +28,9 @@ class PassForm(forms.ModelForm):
     class Meta:
         model = LoginUser
         fields = ['username']
+
+class FriendshipForm(forms.ModelForm):
+    username = forms.CharField(max_length = 30)
+    class Meta:
+        model = Friendship
+        fields = ['username']

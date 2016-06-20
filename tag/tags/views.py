@@ -6,6 +6,22 @@ from .forms import *
 from .models import *
 from django.utils import timezone
 import datetime
+def addfriends(request):
+    if request.method == "POST":
+        form = FriendshipForm(request.POST)
+        if form.is_valid():
+            newfriendship = Friendship()
+            newfriendship.creator = request.user
+            newfriend = User.objects.get(username = request.POST['username'])
+            newfriendship.friend = newfriend
+            newfriendship.save()
+            return redirect('profile')
+        else:
+            form = FriendshipForm()
+            return render(request, 'tags/friend.html', {'form':form})
+    else:
+        form = FriendshipForm()
+        return render(request, 'tags/friend.html', {'form':form})
 
 def tagpage(request, tagid):
     tag = Tag.objects.get(id = tagid)
@@ -41,7 +57,8 @@ def homepage(request):
 def user_homepage(request):
 
         Tags = Tag.objects.filter(owner__username = request.user.username)
-
+        Friends = Friendship.objects.filter(creator__username = request.user.username)
+        friendslist = list(Friends.order_by())
         tagslist = list(Tags.order_by())
         taglink = []
         for x in tagslist:
@@ -67,8 +84,8 @@ def user_homepage(request):
                 return redirect('profile')
         else:
             form = TagForm()
-            return render(request, 'tags/profile.html', {'response': response, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
-        return render(request, "tags/profile.html", {'response': response, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+            return render(request, 'tags/profile.html', {'friendslist': friendslist, 'response': response, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+
 
 
 def sign_up(request):
