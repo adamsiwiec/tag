@@ -1,3 +1,4 @@
+{% load static from staticfiles %}
 <!doctype html>
 <html>
 <head>
@@ -5,7 +6,13 @@
 </head>
 <body>
   <p> Welcome {{ name }}</p>
-  <img src = "{{ extrapic }}">
+  {% if extrapic == False %}
+  <img src="{% static 'icon-user-default.png' %}">
+  {% else %}
+  <img src="{{ extrapic }}"
+  <br>
+  <p>{{ bio }}</p>
+  {% endif %}
   <h1>New friends:</h1>
   {% for z in friendslist %}
   <p>{{ z }}</p>

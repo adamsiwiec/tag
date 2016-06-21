@@ -47,8 +47,9 @@ def view_homepage(request, username):
     try:
         extra = Extra.objects.get(user__username = username)
         extrapic = extra.profileimage.url
+        bio = extra.bio
     except:
-        extrapic = "https://support.plymouth.edu/kb_images/Yammer/default.jpeg"
+        extrapic = False
 
     Tags = Tag.objects.filter(owner__username = request.user.username)
     Friends = Friendship.objects.filter(creator__username = request.user.username)
@@ -74,7 +75,7 @@ def view_homepage(request, username):
     user1 = User.objects.get(username = username)
     name = user1.first_name + " " + user1.last_name
 
-    return render(request, 'tags/viewprofile.html', {'BASE_DIR':settings.BASE_DIR, 'extrapic': extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'username1':username,  'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+    return render(request, 'tags/viewprofile.html', {'bio': bio, 'BASE_DIR':settings.BASE_DIR, 'extrapic': extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'username1':username,  'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
 
 
 
@@ -128,8 +129,15 @@ def homepage(request):
 
 
 def user_homepage(request):
-        extra = Extra.objects.get(user = request.user)
-        extrapic = extra.profileimage.url
+        try:
+            extra = Extra.objects.get(user = request.user)
+            extrapic = extra.profileimage.url
+            bio = extra.bio
+        except:
+            extrapic = False
+            bio = ""
+
+
         Tags = Tag.objects.filter(owner__username = request.user.username)
         Friends = Friendship.objects.filter(creator__username = request.user.username)
         friendslist = list(Friends.order_by())
@@ -162,7 +170,7 @@ def user_homepage(request):
                 return redirect('profile')
         else:
             form = TagForm()
-            return render(request, 'tags/profile.html', {'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+            return render(request, 'tags/profile.html', {'bio':bio,'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
 
 
 
