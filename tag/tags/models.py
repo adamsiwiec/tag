@@ -22,7 +22,13 @@ class Friendship(models.Model):
 
 class Extra(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-    bio = models.CharField(max_length = 300)
-    profileimage = models.ImageField( upload_to = "profilepics")
+    bio = models.CharField(max_length = 300, blank = True)
+    profileimage = models.ImageField( upload_to = "profilepics", blank = True)
+    def __str__(self):
+        return self.user.username
+
+class Credits(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    credits = models.IntegerField(default = 100)
     def __str__(self):
         return self.user.username

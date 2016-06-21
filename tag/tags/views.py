@@ -50,7 +50,8 @@ def view_homepage(request, username):
         bio = extra.bio
     except:
         extrapic = False
-
+    creditsowned = Credits.objects.get(user__username = username)
+    creditsowned = creditsowned.credits
     Tags = Tag.objects.filter(owner__username = request.user.username)
     Friends = Friendship.objects.filter(creator__username = request.user.username)
     friendslist = list(Friends.order_by())
@@ -75,7 +76,7 @@ def view_homepage(request, username):
     user1 = User.objects.get(username = username)
     name = user1.first_name + " " + user1.last_name
 
-    return render(request, 'tags/viewprofile.html', {'bio': bio, 'BASE_DIR':settings.BASE_DIR, 'extrapic': extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'username1':username,  'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+    return render(request, 'tags/viewprofile.html', {'creditsowned':creditsowned, 'bio': bio, 'BASE_DIR':settings.BASE_DIR, 'extrapic': extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'username1':username,  'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
 
 
 
@@ -87,6 +88,9 @@ def addfriends(request):
             newfriendship.creator = request.user
             newfriend = User.objects.get(username = request.POST['username'])
             newfriendship.friend = newfriend
+            credits = Credits.objects.get(user= request.user)
+            credits.credits += 10
+            credits.save()
             newfriendship.save()
             return redirect('profile')
         else:
@@ -106,12 +110,18 @@ def tagpage(request, tagid):
             form = PassForm(request.POST)
             if form.is_valid():
                 person = request.POST['username']
+                if person == request.user.username:
+                    return redirect('profile')
                 PersonObject = User.objects.get(username = person)
                 tag.owner = PersonObject
                 tag.streak += 1
                 tag.created = timezone.now()
                 tag.save()
                 return redirect('taghomepage', tagid = tagid)
+            else:
+                form = PassForm()
+                formbutton = '<button type = "submit">Create Tag</button>'
+                return render(request, 'tags/tag.html', { 'tagheadline':tagheadline, 'tagstreak':tagstreak, 'tagowner': tagowner, 'form':form, 'formbutton': formbutton})
         else:
             form = PassForm()
             formbutton = '<button type = "submit">Create Tag</button>'
@@ -143,6 +153,8 @@ def user_homepage(request):
         friendslist = list(Friends.order_by())
         tagslist = list(Tags.order_by())
         taglink = []
+        creditsowned = Credits.objects.get(user = request.user)
+        creditsowned = creditsowned.credits
         newfriends = Friendship.objects.filter(creator__username = request.user.username, created__gte = timezone.now() - datetime.timedelta(days = 2))
         newfriendslist = list(newfriends.order_by())
         if len(newfriendslist) > 8:
@@ -166,11 +178,18 @@ def user_homepage(request):
             if form.is_valid():
                 tag = form.save(commit=False)
                 tag.owner = request.user
+                subtractcred = Credits.objects.get(user = request.user)
+                subtractcred.credits -= 25
+                subtractcred.save()
                 tag.save()
                 return redirect('profile')
+            else:
+                form = TagForm()
+                return render(request, 'tags/profile.html', {'creditsowned':creditsowned, 'bio':bio,'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+
         else:
             form = TagForm()
-            return render(request, 'tags/profile.html', {'bio':bio,'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+            return render(request, 'tags/profile.html', {'creditsowned':creditsowned, 'bio':bio,'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
 
 
 
@@ -181,9 +200,13 @@ def sign_up(request):
             form = UserCreate(request.POST)
             if form.is_valid():
                 user = form.save(commit=False)
+                credit = Credits()
+                credit.user = user
+                credit.save()
                 user.save()
                 return redirect('login')
             else:
+                form = UserCreate()
                 return render(request, 'tags/sign_up.html', {'form':form, 'error':error})
         else:
             form = UserCreate()

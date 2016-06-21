@@ -6,6 +6,7 @@
 </head>
 <body>
   <p> Welcome {{ name }}</p>
+  <p>Your credits: {{ creditsowned }}
   {% if extrapic == False %}
   <img src="{% static 'icon-user-default.png' %}">
   {% else %}
