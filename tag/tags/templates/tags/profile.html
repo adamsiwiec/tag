@@ -5,6 +5,7 @@
 </head>
 <body>
   <p> Welcome {{ name }}</p>
+  <img src = "{{ extrapic }}">
   <h1>New friends:</h1>
   {% for z in friendslist %}
   <p>{{ z }}</p>
@@ -23,5 +24,6 @@
     {{form.as_p}}
   <button type = "submit">Create Tag</button>
   </form>
+  <p><a href = "{% url 'editprofile' %}">Edit Your Profile</a></p>
 </body>
 </html>

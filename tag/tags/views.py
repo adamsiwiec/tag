@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from .forms import *
@@ -6,6 +7,31 @@ from .forms import *
 from .models import *
 from django.utils import timezone
 import datetime
+from django.conf import settings
+def editprofile(request):
+    if request.method == "POST":
+        form = ExtraForm(request.POST, request.FILES)
+        if form.is_valid():
+
+            try:
+                userupdate = Extra.objects.get(user = request.user)
+                extra = form.save(commit = False)
+                userupdate.profileimage = extra.profileimage
+                userupdate.bio = extra.bio
+                userupdate.save()
+                return redirect('profile')
+            except:
+                extra = form.save(commit = False)
+                extra.user = request.user
+                extra.save()
+                return redirect('profile')
+        else:
+            form = ExtraForm()
+            return render(request, 'tags/editprofile.html', {'form':form})
+    else:
+        form = ExtraForm()
+        return render(request, 'tags/editprofile.html', {'form':form})
+
 def removefriend(request, removevar):
     try:
         removefriendship = Friendship.objects.get(friend__username = removevar , creator__username = request.user.username)
@@ -18,6 +44,12 @@ def removefriend(request, removevar):
 def view_homepage(request, username):
     if username == request.user.username:
         return redirect('profile')
+    try:
+        extra = Extra.objects.get(user__username = username)
+        extrapic = extra.profileimage.url
+    except:
+        extrapic = "https://support.plymouth.edu/kb_images/Yammer/default.jpeg"
+
     Tags = Tag.objects.filter(owner__username = request.user.username)
     Friends = Friendship.objects.filter(creator__username = request.user.username)
     friendslist = list(Friends.order_by())
@@ -42,7 +74,7 @@ def view_homepage(request, username):
     user1 = User.objects.get(username = username)
     name = user1.first_name + " " + user1.last_name
 
-    return render(request, 'tags/viewprofile.html', {'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'username1':username,  'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+    return render(request, 'tags/viewprofile.html', {'BASE_DIR':settings.BASE_DIR, 'extrapic': extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'username1':username,  'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
 
 
 
@@ -96,7 +128,8 @@ def homepage(request):
 
 
 def user_homepage(request):
-
+        extra = Extra.objects.get(user = request.user)
+        extrapic = extra.profileimage.url
         Tags = Tag.objects.filter(owner__username = request.user.username)
         Friends = Friendship.objects.filter(creator__username = request.user.username)
         friendslist = list(Friends.order_by())
@@ -129,7 +162,7 @@ def user_homepage(request):
                 return redirect('profile')
         else:
             form = TagForm()
-            return render(request, 'tags/profile.html', {'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+            return render(request, 'tags/profile.html', {'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
 
 
 

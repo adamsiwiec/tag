@@ -7,3 +7,4 @@ from .models import *
 admin.site.register(Tag)
 admin.site.register(Friendship)
 admin.site.register(LoginUser)
+admin.site.register(Extra)

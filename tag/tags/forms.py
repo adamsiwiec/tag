@@ -3,9 +3,9 @@ from django.contrib.auth.forms import *
 from .models import *
 
 class UserCreate(UserCreationForm):
-    first_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'e.g John'}))
-    last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': 'e.g Doe'}))
-    email = forms.EmailField(max_length=75, widget=forms.TextInput(attrs={'placeholder': 'johndoe@example.com'}))
+    first_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': ' John'}))
+    last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': ' Doe'}))
+    email = forms.EmailField(max_length=75, widget=forms.TextInput(attrs={'placeholder': ' johndoe@example.com'}))
     class Meta:
         model = User
         fields = ['first_name', 'last_name','username', 'email',]
@@ -31,3 +31,10 @@ class FriendshipForm(forms.ModelForm):
     class Meta:
         model = Friendship
         fields = ['username']
+
+class ExtraForm(forms.ModelForm):
+    bio = forms.CharField(max_length = 300, widget=forms.TextInput(attrs={'autofocus':'autofocus'}))
+    profileimage = forms.ImageField()
+    class Meta:
+        model = Extra
+        fields = ['bio', 'profileimage']

@@ -19,3 +19,10 @@ class Friendship(models.Model):
     friend = models.ForeignKey(User, related_name = 'friend')
     def __str__(self):
         return self.friend.username
+
+class Extra(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    bio = models.CharField(max_length = 300)
+    profileimage = models.ImageField( upload_to = "profilepics")
+    def __str__(self):
+        return self.user.username
