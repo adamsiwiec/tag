@@ -1,11 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+
+
 class Tag(models.Model):
     streak = models.BigIntegerField(default = 0)
     name = models.CharField(max_length = 25, unique = True)
-    owner = models.ForeignKey(User, on_delete = models.CASCADE)
+    owner = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "owner")
     created = models.DateTimeField(default = timezone.now)
+    original = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "original")
     def __str__(self):
         return self.name
 
