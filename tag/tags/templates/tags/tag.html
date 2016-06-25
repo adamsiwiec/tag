@@ -5,12 +5,16 @@
 </head>
 <body>
 
-  <h1> {{ tagheadline }} </h1>
-  <h1> {{ tagowner }} </h1>
+  <h1> "{{ tagheadline }}" </h1>
+  <h1><a href = "{% url 'homepage' tagowner.username %}" >{{ tagowner }}</a> </h1>
   <p>Streak: {{ tagstreak }}</h1>
   <form method = "POST">{% csrf_token %}
     {{form.as_p}}
   {{ formbutton | safe }}
+  {{ suggestions | safe }}
+  {% for person, name in zipped %}
+  <p><a href = "{% url 'pass_tag' person tagid %}"> {{ person }} : {{ name }}</a> </p>
+  {% endfor %}
   </form>
 </body>
 </html>

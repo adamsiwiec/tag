@@ -12,5 +12,6 @@ url(r'^users/(?P<username>[\w]+)/', homeviews.view_homepage, name = "homepage"),
 url(r'^tags/(?P<tagid>[\w]+)/', homeviews.tagpage, name = "taghomepage"),
 url(r'^addfriends/', homeviews.addfriends, name = "addfriends"),
 url(r'^removefriend/(?P<removevar>[\w]+)/', homeviews.removefriend, name = "removefriend"),
-url(r'^edit/', homeviews.editprofile, name = "editprofile")
+url(r'^edit/', homeviews.editprofile, name = "editprofile"),
+url(r'^pass/(?P<username>[\w]+)/(?P<tagid>[0-9]+)', homeviews.pass_tag, name = "pass_tag")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

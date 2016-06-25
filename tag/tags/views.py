@@ -8,6 +8,28 @@ from .models import *
 from django.utils import timezone
 import datetime
 from django.conf import settings
+
+def pass_tag(request, username, tagid):
+    try:
+        taginmotion = Tag.objects.get(id = tagid)
+    except:
+        return redirect('profile')
+
+    if request.user == taginmotion.owner:
+        try:
+            taginmotion.owner = User.objects.get(username = username)
+            taginmotion.streak += 1
+            owner = Credits.objects.get(user = taginmotion.original)
+            owner.credits += 10
+            taginmotion.created = timezone.now()
+            owner.save()
+            taginmotion.save()
+            return redirect('taghomepage', tagid)
+        except:
+            return redirect('taghomepage', tagid)
+
+    else:
+        return redirect('profile')
 def editprofile(request):
     if request.method == "POST":
         form = ExtraForm(request.POST, request.FILES)
@@ -50,14 +72,15 @@ def view_homepage(request, username):
         bio = extra.bio
     except:
         extrapic = False
+        bio = ""
     creditsowned = Credits.objects.get(user__username = username)
     creditsowned = creditsowned.credits
-    Tags = Tag.objects.filter(owner__username = request.user.username)
-    Friends = Friendship.objects.filter(creator__username = request.user.username)
+    Tags = Tag.objects.filter(owner__username = username)
+    Friends = Friendship.objects.filter(creator__username = username)
     friendslist = list(Friends.order_by())
     tagslist = list(Tags.order_by())
     taglink = []
-    newfriends = Friendship.objects.filter(creator__username = request.user.username, created__gte = timezone.now() - datetime.timedelta(days = 2))
+    newfriends = Friendship.objects.filter(creator__username = username, created__gte = timezone.now() - datetime.timedelta(days = 2))
     newfriendslist = list(newfriends.order_by())
     if len(newfriendslist) > 8:
         newfriendslist = ["You have over 8 new friends"]
@@ -85,6 +108,9 @@ def addfriends(request):
         form = FriendshipForm(request.POST)
         if form.is_valid():
             try:
+                if request.post['username'] == request.user.username:
+                    redirect('profile')
+
                 newfriendship = Friendship()
                 newfriendship.creator = request.user
                 newfriend = User.objects.get(username = request.POST['username'])
@@ -125,6 +151,7 @@ def tagpage(request, tagid):
                 owner = Credits.objects.get(user = tag.original)
                 owner.credits += 10
                 tag.created = timezone.now()
+                owner.save()
                 tag.save()
                 return redirect('taghomepage', tagid = tagid)
 
@@ -135,7 +162,15 @@ def tagpage(request, tagid):
         else:
             form = PassForm()
             formbutton = '<button type = "submit">Create Tag</button>'
-            return render(request, 'tags/tag.html', { 'tagheadline':tagheadline, 'tagstreak':tagstreak, 'tagowner': tagowner, 'form':form, 'formbutton': formbutton})
+            suggestions = '<h1>Recommendations:</h1>'
+            friends = list(Friendship.objects.filter(creator = request.user).order_by())
+            recommendfriends = friends[:3]
+            friendName = []
+            for x in recommendfriends:
+                friendName.append("{} {}".format(x.friend.first_name, x.friend.last_name))
+            zipped = zip(recommendfriends, friendName)
+
+            return render(request, 'tags/tag.html', {'tagid':tagid, 'zipped':zipped, 'suggestions':suggestions, 'tagheadline':tagheadline, 'tagstreak':tagstreak, 'tagowner': tagowner, 'form':form, 'formbutton': formbutton})
     else:
         form = ""
         formbutton = ""
