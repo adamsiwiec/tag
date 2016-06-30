@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import *
 from .models import *
 
+
+# CREATES A NEW USER
 class UserCreate(UserCreationForm):
     first_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': ' John'}))
     last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': ' Doe'}))
@@ -11,7 +13,7 @@ class UserCreate(UserCreationForm):
         fields = ['first_name', 'last_name','username', 'email',]
 
 
-
+# CREATES A TAG
 class TagForm(forms.ModelForm):
     name = forms.CharField(max_length = 25, widget=forms.TextInput(attrs={'placeholder': 'e.g "Runner"', 'autofocus':'autofocus'}))
     class Meta:
@@ -19,6 +21,7 @@ class TagForm(forms.ModelForm):
         fields = ['name']
 
 
+# PASSES ON A TAG
 class PassForm(forms.ModelForm):
     username = forms.CharField(max_length = 30)
     class Meta:
@@ -26,12 +29,15 @@ class PassForm(forms.ModelForm):
         fields = ['username']
 
 
+# CREATES A NEW FRIEND
 class FriendshipForm(forms.ModelForm):
     username = forms.CharField(max_length = 30, widget=forms.TextInput(attrs={'autofocus':'autofocus'}))
     class Meta:
         model = Friendship
         fields = ['username']
 
+
+# ADDS EXTRA PROFILE INFORMATION
 class ExtraForm(forms.ModelForm):
     bio = forms.CharField(max_length = 300, widget=forms.TextInput(attrs={'autofocus':'autofocus'}))
     profileimage = forms.ImageField()
