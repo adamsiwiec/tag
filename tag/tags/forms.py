@@ -11,7 +11,11 @@ class UserCreate(UserCreationForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name','username', 'email',]
+    def __init__(self, *args, **kwargs):
+        super(UserCreate, self).__init__(*args, **kwargs)
 
+        for fieldname in ['username', 'password1', 'password2']:
+            self.fields[fieldname].help_text = None
 
 # CREATES A TAG
 class TagForm(forms.ModelForm):

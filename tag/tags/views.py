@@ -10,7 +10,7 @@ from django.conf import settings
 
 
 
-# PASS ON A TAG TO ANOTHER USER
+# PASS ON A TAG TO ANOTHER USER (NOT MEANT FOR USERS VIEWING, ONLY FOR REDIRECTS)
 def pass_tag(request, username, tagid):
 
     try:
@@ -39,8 +39,6 @@ def pass_tag(request, username, tagid):
 # EDIT YOUR PROFILE OR CHANGE A PASSWORD
 def editprofile(request):
 
-
-# START EXTRA PROFILE FORM
     if request.method == "POST":
         form = ExtraForm(request.POST, request.FILES)
         if form.is_valid():
@@ -63,7 +61,7 @@ def editprofile(request):
     else:
         form = ExtraForm()
         return render(request, 'tags/editprofile.html', {'form':form})
-# END EXTRA PROFILE FORM
+
 
 
 # REMOVE A FRIEND (SO SAD)
@@ -79,9 +77,10 @@ def removefriend(request, removevar):
 
 # FOR OUTSIDE USERS TO VIEW ANOTHER USERS PROFILE
 def view_homepage(request, username):
-# LOGICAL REDIRECTS
+# LOGICAL REDIRECT
     if username == request.user.username:
         return redirect('profile')
+# EXTRA PROFILE INFO
     try:
         extra = Extra.objects.get(user__username = username)
         extrapic = extra.profileimage.url
@@ -115,7 +114,7 @@ def view_homepage(request, username):
         alltogether.append([])
         alltogether[x].append(tagslist[x])
         alltogether[x].append(taglink[x])
-    lists = ", ".join(str(v) for v in tagslist)
+
 
 # MAKES NAME
     user = User.objects.get(username = username)
@@ -212,6 +211,7 @@ def homepage(request):
 
 # USER HOMEPAGE IF THEY ARE LOGGED IN
 def user_homepage(request):
+# GET EXTRA PROFILE INFO
         try:
             extra = Extra.objects.get(user = request.user)
             extrapic = extra.profileimage.url
@@ -220,17 +220,25 @@ def user_homepage(request):
             extrapic = False
             bio = ""
 
+# REDIRECT IF NOT LOGGED IN
         if request.user.id == None:
             return redirect('login')
+# TAGS
         Tags = Tag.objects.filter(owner__username = request.user.username)
-        Friends = Friendship.objects.filter(creator__username = request.user.username)
-        friendslist = list(Friends.order_by())
         tagslist = list(Tags.order_by())
         taglink = []
-        creditsowned = Credits.objects.get(user = request.user)
-        creditsowned = creditsowned.credits
+
+# FRIENDS
+        Friends = Friendship.objects.filter(creator__username = request.user.username)
+        friendslist = list(Friends.order_by())
         newfriends = Friendship.objects.filter(creator__username = request.user.username, created__gte = timezone.now() - datetime.timedelta(days = 2))
         newfriendslist = list(newfriends.order_by())
+
+# CREDITS
+        creditsowned = Credits.objects.get(user = request.user)
+        creditsowned = creditsowned.credits
+
+# MAKE A TEMPLATE COMPATIBLE FORMAT
         if len(newfriendslist) > 8:
             newfriendslist = ["You have over 8 new friends"]
         for x in tagslist:
@@ -242,11 +250,11 @@ def user_homepage(request):
             alltogether[x].append(taglink[x])
 
 
-        lists = ", ".join(str(v) for v in tagslist)
-
-
+# GETS USER AND NAME
         user = User.objects.get(username = request.user.username)
         name = user.first_name + " " + user.last_name
+
+# TAG CREATION FORM
         if request.method == "POST":
             form = TagForm(request.POST)
             if form.is_valid():
@@ -263,12 +271,12 @@ def user_homepage(request):
             else:
 
                 form = TagForm()
-                return render(request, 'tags/profile.html', { 'creditsowned':creditsowned, 'bio':bio,'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+                return render(request, 'tags/profile.html', { 'creditsowned':creditsowned, 'bio':bio,'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'alltogether':alltogether})
 
         else:
 
             form = TagForm()
-            return render(request,  'tags/profile.html', {'creditsowned':creditsowned, 'bio':bio,'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'lists': lists, 'taglink': taglink, 'alltogether':alltogether})
+            return render(request,  'tags/profile.html', {'creditsowned':creditsowned, 'bio':bio,'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'alltogether':alltogether})
 
 
 
