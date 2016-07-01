@@ -7,6 +7,8 @@ from .models import *
 from django.utils import timezone
 import datetime
 from django.conf import settings
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
 

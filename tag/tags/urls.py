@@ -3,6 +3,7 @@ from . import views as homeviews
 from django.contrib.auth.urls import *
 from django.conf import settings
 from django.conf.urls.static import static
+import django.views.defaults
 
 urlpatterns = [
 url(r'^$', homeviews.homepage, name = "home"),
@@ -13,5 +14,6 @@ url(r'^tags/(?P<tagid>[\w]+)/', homeviews.tagpage, name = "taghomepage"),
 url(r'^addfriends/', homeviews.addfriends, name = "addfriends"),
 url(r'^removefriend/(?P<removevar>[\w]+)/', homeviews.removefriend, name = "removefriend"),
 url(r'^edit/', homeviews.editprofile, name = "editprofile"),
-url(r'^pass/(?P<username>[\w]+)/(?P<tagid>[0-9]+)', homeviews.pass_tag, name = "pass_tag")
+url(r'^pass/(?P<username>[\w]+)/(?P<tagid>[0-9]+)', homeviews.pass_tag, name = "pass_tag"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

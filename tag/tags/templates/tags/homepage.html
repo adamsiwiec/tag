@@ -10,14 +10,49 @@
   <link rel="stylesheet" href = "{% static 'css/main.css' %}">
 </head>
 <body>
+  <div class = "header" style="height=80vh;width=100vw;min-height:80vh">
   <div class = "head">
   <p class = "nav"><a href = "{% url 'sign_up' %}">Sign up</a></p>
   <p class = "nav"><a href = "{% url 'login' %}">Login</a></p>
   <p class = "nav"><a href = "{% url 'profile' %}">Profile</a></p>
   </div>
   <br>
-<h1 id = "tag"> Tag </h1>
+<div class = "info">
+<h1> Tag </h1>
 <h1 id = "desc"> The Social Media of Adjectives </h1>
-
+<a href = "{% url 'sign_up' %}"><p id = "signup">Sign up</p></a>
+</div>
+</div>
+<div class = "works" style="height: 80vh;min-height:80vh;">
+<h1 id = "works">How it works:</h1>
+<div class = "gallery">
+<ul>
+  <li>
+    <p class = "left">Quickly add tags to you and others</p>
+    <img src="{% static 'img/storm.svg'%}" style = "position: absolute;
+right: 40px;
+bottom: 40px;">
+  </li>
+  <li>
+    <img src="{% static 'img/world.svg'%}" style = "position: absolute;
+left: 40px;
+bottom: 40px;">
+    <p class = "right">Find new people from around the world</p>
+  </li>
+  <li>
+    <p class = "left">Find your old friends</p>
+    <img src="{% static 'img/heart.svg'%}" style = "position: absolute;
+right: 40px;
+top: 40px;">
+  </li>
+  <li>
+    <img src="{% static 'img/tag.svg'%}" style = "position: absolute;
+left: 40px;
+top: 40px;">
+    <p class = "right">Make a streak to rack up credits and get more tags</p>
+  </li>
+</ul>
+</div>
+</div>
 </body>
 </html>
