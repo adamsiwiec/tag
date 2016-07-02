@@ -40,6 +40,21 @@ def pass_tag(request, username, tagid):
 
 # EDIT YOUR PROFILE OR CHANGE A PASSWORD
 def editprofile(request):
+# CREDITS
+    creditsowned = Credits.objects.get(user__username = request.user.username)
+    creditsowned = creditsowned.credits
+# MAKES NAME
+    user = User.objects.get(username = request.user.username)
+    name = user.first_name + " " + user.last_name
+# EXTRA PROFILE INFO
+    try:
+        extra = Extra.objects.get(user__username = request.user.username)
+        extrapic = extra.profileimage.url
+        bio = extra.bio
+    except:
+        extrapic = False
+        bio = ""
+
 
     if request.method == "POST":
         form = ExtraForm(request.POST, request.FILES)
@@ -59,10 +74,10 @@ def editprofile(request):
                 return redirect('profile')
         else:
             form = ExtraForm()
-            return render(request, 'tags/editprofile.html', {'form':form})
+            return render(request, 'tags/editprofile.html', {'form':form, 'extrapic':extrapic, 'bio': bio, 'name':name,'creditsowned':creditsowned,})
     else:
         form = ExtraForm()
-        return render(request, 'tags/editprofile.html', {'form':form})
+        return render(request, 'tags/editprofile.html', {'form':form, 'extrapic':extrapic, 'bio': bio, 'name':name,'creditsowned':creditsowned,})
 
 
 

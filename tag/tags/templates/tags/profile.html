@@ -3,17 +3,24 @@
 <html>
 <head>
   <title>{{ username }} | Tag </title>
+  <link href="https://fonts.googleapis.com/css?family=Assistant:300|Lato:300|Quicksand:300,700" rel="stylesheet">
+  <link rel="stylesheet" href = "{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href = "{% static 'css/signup.css' %}">
 </head>
 <body>
-  <p> Welcome {{ name }}</p>
-  <p>Your credits: {{ creditsowned }}
+    <ul id = "container">
+  <li class = "profileinfo">{{ name }}</li>
+
   {% if extrapic == False %}
-  <img src="{% static 'icon-user-default.png' %}">
+<li class = "profileinfo"><a href = "{% url 'profile'%}"><img  src="{% static 'icon-user-default.png' %}"></a></li>
   {% else %}
-  <img src="{{ extrapic }}"
-  <br>
-  <p>{{ bio }}</p>
+  <li class = "profileinfo"><a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a></li>
+
+  <!-- <p>{{ bio }}</p> -->
   {% endif %}
+  <li class = "profileinfo">C: {{ creditsowned }}</li>
+</ul>
+<!--
   <h1>New friends:</h1>
   {% for z in friendslist %}
   <p>{{ z }}</p>
