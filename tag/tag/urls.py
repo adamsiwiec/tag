@@ -20,7 +20,7 @@ from django.contrib.auth.views import *
 from . import views
 
 urlpatterns = [
-    url('^', include('django.contrib.auth.urls')),
+    
     url(r'^admin/', admin.site.urls),
     url(r'^', include('tags.urls'), name = "home")
 ]

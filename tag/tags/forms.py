@@ -5,6 +5,26 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
 from crispy_forms.bootstrap import FormActions
 
+# LOG IN USER
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=30)
+    password = forms.CharField(max_length=300,widget=forms.PasswordInput)
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+
+        for fieldname in ['username', 'password']:
+            self.fields[fieldname].help_text = None
+
+    helper = FormHelper()
+    helper.form_method = 'POST'
+    helper.form_class = 'col-lg-8  col-lg-offset-2'
+    helper.layout = Layout(
+        'username',
+        'password',
+        FormActions(Submit('Login', 'Login', css_class="btn-primary"))
+
+    )
+
 
 # CREATES A NEW USER
 class UserCreate(UserCreationForm):
