@@ -7,7 +7,7 @@ import django.views.defaults
 
 urlpatterns = [
 url(r'^$', homeviews.homepage, name = "home"),
-url(r'^accounts/profile/', homeviews.user_homepage, name = "profile"),
+url(r'^profile', homeviews.user_homepage, name = "profile"),
 url(r'^signup/', homeviews.sign_up, name = "sign_up"),
 url(r'^users/(?P<username>[\w]+)/', homeviews.view_homepage, name = "homepage"),
 url(r'^tags/(?P<tagid>[\w]+)/', homeviews.tagpage, name = "taghomepage"),

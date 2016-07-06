@@ -12,6 +12,11 @@ from django.template import RequestContext
 
 
 
+def login(request, *args, **kwargs):
+    return login(request, *args, **kwargs)
+
+
+
 # PASS ON A TAG TO ANOTHER USER (NOT MEANT FOR USERS VIEWING, ONLY FOR REDIRECTS)
 def pass_tag(request, username, tagid):
 

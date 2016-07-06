@@ -1,62 +1,75 @@
 {% load static from staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>
-    Tag | The Social Media of Adjectives
-  </title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/css?family=Assistant:300|Lato:300|Quicksand:300,700" rel="stylesheet">
-
-  <link rel="stylesheet" href = "{% static 'css/main.css' %}">
-</head>
-<body>
-  <div class = "header" style="height=80vh;width=100vw;min-height:80vh">
-  <div class = "head">
-  <p class = "nav"><a href = "{% url 'sign_up' %}">Sign up</a></p>
-  <p class = "nav"><a href = "{% url 'login' %}">Login</a></p>
-  <p class = "nav"><a href = "{% url 'profile' %}">Profile</a></p>
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Tag | The Social Media of Adjectives</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+  </head>
+  <body>
+    <!-- Nav -->
+    <div class="collapse" id="exCollapsingNavbar">
+  <div class="bg-inverse p-a-1">
+    <h4>Home</h4>
+    <hr>
   </div>
-  <br>
-<div class = "info">
-<h1 class = "display-1"> Tag </h1>
-<h1 class = "leadB
-" id = "desc"> The Social Media of Adjectives </h1>
-<a href = "{% url 'sign_up' %}"><p id = "signup">Sign up</p></a>
+  <div class="bg-inverse p-a-1">
+    <h4>Login</h4>
+    <hr>
+  </div>
+  <div class="bg-inverse p-a-1">
+    <h4>Sign up</h4>
+    <hr>
+  </div>
+  <div class="bg-inverse p-a-1">
+    <h4>How it Works</h4>
+
+  </div>
+</div>
+<nav class="navbar navbar-light bg-faded hidden-md-up">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
+    &#9776;
+  </button>
+</nav>
+    <nav class="navbar-fixed-top navbar-dark bg-primary  hidden-sm-down ">
+  <ul class="nav navbar-nav ">
+    <div class ="container text-xs-center col-md-10 col-xs-offset-1">
+    <li class="nav-item active col-xs-3">
+      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item col-xs-2">
+      <a class="nav-link" href="#">How it Works</a>
+    </li>
+    <li class="nav-item col-xs-3">
+      <a class="nav-link" href="#">Sign Up</a>
+    </li>
+    <li class="nav-item col-xs-3">
+      <a class="nav-link" href="#">Login</a>
+    </li>
+  </div>
+  </ul>
+</nav>
+
+<!-- Main Catcher -->
+<div class="jumbotron">
+  <div class="container text-xs-center">
+  <h1 class="display-2">Tag</h1>
+  <p class="lead">The Social Media of Adjectives</p>
+  <hr class="m-y-2">
+    <a class="btn btn-primary btn-lg m-r-3" href="works.html" role="button">Learn more</a>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Sign up</a>
+  </p>
 </div>
 </div>
-<div class = "works" style="height: 80vh;min-height:80vh;">
-<h1 class = "display-1" id = "works">How it works:</h1>
-<div class = "gallery">
-<ul>
-  <li>
-    <p class = "left">Quickly add tags to you and others</p>
-    <img src="{% static 'img/storm.svg'%}" style = "position: absolute;
-right: 40px;
-bottom: 40px;">
-  </li>
-  <li>
-    <img src="{% static 'img/world.svg'%}" style = "position: absolute;
-left: 40px;
-bottom: 40px;">
-    <p class = "right">Find new people from around the world</p>
-  </li>
-  <li>
-    <p class = "left">Find your old friends</p>
-    <img src="{% static 'img/heart.svg'%}" style = "position: absolute;
-right: 40px;
-top: 40px;">
-  </li>
-  <li>
-    <img src="{% static 'img/tag.svg'%}" style = "position: absolute;
-left: 40px;
-top: 40px;">
-    <p class = "right">Make a streak to rack up credits and get more tags</p>
-  </li>
-</ul>
-</div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
-</body>
+
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+  </body>
 </html>

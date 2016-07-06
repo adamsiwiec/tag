@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import *
 from .models import *
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Layout
+from crispy_forms.bootstrap import FormActions
 
 
 # CREATES A NEW USER
@@ -17,12 +20,29 @@ class UserCreate(UserCreationForm):
         for fieldname in ['username', 'password1', 'password2']:
             self.fields[fieldname].help_text = None
 
+    helper = FormHelper()
+    helper.form_method = 'POST'
+    helper.form_class = 'col-lg-8  col-lg-offset-2'
+    helper.layout = Layout(
+        'first_name',
+        'last_name',
+        'username',
+        'email',
+        'password1',
+        'password2',
+        FormActions(Submit('Create', 'Create', css_class="btn-primary"))
+
+    )
+
 # CREATES A TAG
 class TagForm(forms.ModelForm):
     name = forms.CharField(max_length = 25, widget=forms.TextInput(attrs={'placeholder': 'e.g "Runner"', 'autofocus':'autofocus'}))
     class Meta:
         model = Tag
         fields = ['name']
+    helper = FormHelper()
+    helper.form_method = 'POST'
+    helper.add_input(Submit('Create', 'Create', css_class="btn-primary"))
 
 
 # PASSES ON A TAG
