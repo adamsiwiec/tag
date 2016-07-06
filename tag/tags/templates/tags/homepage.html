@@ -1,12 +1,13 @@
 {% load static from staticfiles %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>
     Tag | The Social Media of Adjectives
   </title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Assistant:300|Lato:300|Quicksand:300,700" rel="stylesheet">
-  <link rel="stylesheet" href = "{% static 'css/normalize.css' %}">
+
   <link rel="stylesheet" href = "{% static 'css/main.css' %}">
 </head>
 <body>
@@ -18,13 +19,14 @@
   </div>
   <br>
 <div class = "info">
-<h1> Tag </h1>
-<h1 id = "desc"> The Social Media of Adjectives </h1>
+<h1 class = "display-1"> Tag </h1>
+<h1 class = "leadB
+" id = "desc"> The Social Media of Adjectives </h1>
 <a href = "{% url 'sign_up' %}"><p id = "signup">Sign up</p></a>
 </div>
 </div>
 <div class = "works" style="height: 80vh;min-height:80vh;">
-<h1 id = "works">How it works:</h1>
+<h1 class = "display-1" id = "works">How it works:</h1>
 <div class = "gallery">
 <ul>
   <li>
@@ -54,5 +56,7 @@ top: 40px;">
 </ul>
 </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 </body>
 </html>
