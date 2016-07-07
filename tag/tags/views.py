@@ -10,8 +10,10 @@ from django.conf import settings
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-
-
+# DISPLAYS HOW IT WORKS PAGE
+def works(request):
+    return render(request,'tags/works.html')
+# LOG IN USER
 def login_user(request):
     logout(request)
     username = password = ''

@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 import django.views.defaults
 
 urlpatterns = [
+url('^howitworks/', homeviews.works, name = "works"),
 url('^login/', homeviews.login_user, name = "login"),
 url(r'^$', homeviews.homepage, name = "home"),
 url(r'^profile/', homeviews.user_homepage, name = "profile"),
