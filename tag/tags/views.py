@@ -132,12 +132,20 @@ def view_homepage(request, username):
         return redirect('profile')
 # EXTRA PROFILE INFO
     try:
-        extra = Extra.objects.get(user__username = username)
+        extra = Extra.objects.get(user__username = request.user.username)
         extrapic = extra.profileimage.url
         bio = extra.bio
     except:
         extrapic = False
         bio = ""
+    try:
+        extra = Extra.objects.get(user__username = username)
+        extrapic1 = extra.profileimage.url
+        bio = extra.bio
+    except:
+        extrapic1 = False
+        bio = ""
+
 
 # CREDITS
     creditsowned = Credits.objects.get(user__username = username)
@@ -170,7 +178,7 @@ def view_homepage(request, username):
     user = User.objects.get(username = username)
     name = user.first_name + " " + user.last_name
 
-    return render(request, 'tags/viewprofile.html', {'creditsowned':creditsowned, 'bio': bio, 'BASE_DIR':settings.BASE_DIR, 'extrapic': extrapic, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'username1':username, 'alltogether':alltogether})
+    return render(request, 'tags/viewprofile.html', {'creditsowned':creditsowned, 'bio': bio, 'BASE_DIR':settings.BASE_DIR, 'extrapic': extrapic, 'extrapic1': extrapic1, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'username1':username, 'alltogether':alltogether})
 
 
 
@@ -211,7 +219,19 @@ def addfriends(request):
 
 # DISPLAYS INFORMATION ABOUT A SPECIFIC TAG
 def tagpage(request, tagid):
+
+    try:
+        extra = Extra.objects.get(user = request.user)
+        extrapic = extra.profileimage.url
+        bio = extra.bio
+    except:
+        extrapic = False
+        bio = ""
     tag = Tag.objects.get(id = tagid)
+    if tag.owner == request.user:
+        permission = True;
+    else:
+        permission = False;
     tagheadline = tag.name
     tagstreak = tag.streak
     tagowner = tag.owner
@@ -250,11 +270,11 @@ def tagpage(request, tagid):
                 friendName.append("{} {}".format(x.friend.first_name, x.friend.last_name))
             zipped = zip(recommendfriends, friendName)
 
-            return render(request, 'tags/tag.html', {'tagid':tagid, 'zipped':zipped, 'suggestions':suggestions, 'tagheadline':tagheadline, 'tagstreak':tagstreak, 'tagowner': tagowner, 'form':form, 'formbutton': formbutton})
+            return render(request, 'tags/tag.html', {'tagid':tagid, 'zipped':zipped, 'suggestions':suggestions, 'tagheadline':tagheadline, 'tagstreak':tagstreak, 'tagowner': tagowner, 'form':form, 'formbutton': formbutton, 'extrapic':extrapic, 'permission':permission})
     else:
         form = ""
         formbutton = ""
-        return render(request, 'tags/tag.html', { 'tagheadline':tagheadline, 'tagstreak':tagstreak, 'tagowner': tagowner, 'form':form, 'formbutton': formbutton})
+        return render(request, 'tags/tag.html', { 'tagheadline':tagheadline, 'tagstreak':tagstreak, 'tagowner': tagowner, 'form':form, 'formbutton': formbutton, 'extrapic':extrapic, 'permission':permission})
 
 
 

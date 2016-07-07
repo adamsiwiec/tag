@@ -1,20 +1,72 @@
+{% load static from staticfiles %}
+{% load crispy_forms_tags %}
 <!doctype html>
 <html>
 <head>
-  <title></title>
+  <title> {{ tagheadline}} | Tag</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 </head>
 <body>
+  <style>
+  body {
+    background-color: #ECEEEF;
+  }
+  </style>
+  <nav class="navbar navbar-light bg-faded">
+<div class="nav navbar-nav m-r-1 container">
+  <a class="nav-item nav-link active" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+  <a class="nav-item nav-link" href="#">Friends</a>
+  <a class="nav-item nav-link" href="#">Tags</a>
+  <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+  <div class="pull-xs-right m-r-1">
+  {% if extrapic == False %}
+  <a href = "{% url 'profile'%}"><img src="{% static 'icon-user-default.png' %}"></a>
+  {% else %}
+  <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+  {% endif %}
+</div>
+</div>
+</nav>
+<div class = "container">
+  <div class = "jumbotron text-xs-center">
+  <h1 class = "display-1"> "{{ tagheadline }}" </h1>
+  <h1 class = "m-b-2"><a href = "{% url 'homepage' tagowner.username %}" >{{ tagowner }}</a> </h1>
 
-  <h1> "{{ tagheadline }}" </h1>
-  <h1><a href = "{% url 'homepage' tagowner.username %}" >{{ tagowner }}</a> </h1>
-  <p>Streak: {{ tagstreak }}</h1>
-  <form method = "POST">{% csrf_token %}
-    {{form.as_p}}
-  {{ formbutton | safe }}
-  {{ suggestions | safe }}
-  {% for person, name in zipped %}
-  <p><a href = "{% url 'pass_tag' person tagid %}"> {{ person }} : {{ name }}</a> </p>
-  {% endfor %}
-  </form>
+
+  {% if permission %}
+    <button type="button" class="btn col-xs-offset-3 btn-primary col-xs-3" href="#register-modal" data-toggle="modal" data-target="#register-modal">Pass it on</button>
+    <p class = "lead col-xs-3 ">Streak: {{ tagstreak }}</p>
+  {% else %}
+  <p class = "lead col-xs-12">Streak: {{ tagstreak }}</p>
+  {% endif %}
+
+  </div>
+
+  <div id= "register-modal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Pass on '{{tagheadline}}'</h4>
+        </div>
+        <div class="modal-body">
+          {% crispy form %}
+          <h1 class = "lead">Recommendations:</h4>
+
+          {% for person, name in zipped %}
+          <p><a href = "{% url 'pass_tag' person tagid %}"> {{ person }} : {{ name }}</a> </p>
+          {% endfor %}
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+
 </body>
 </html>

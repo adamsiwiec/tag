@@ -47,9 +47,15 @@
         Profile
       </h3>
       <ul>
-        <li class = " col-xs-offset-1">Stuff</li>
-        <li class = " col-xs-offset-1">Stuff</li>
-        <li class = " col-xs-offset-1">Stuff</li>
+        <li class = " col-xs-offset-1">
+        {% if extrapic == False %}
+        <a href = "{% url 'profile'%}"><img src="{% static 'icon-user-default.png' %}"></a>
+        {% else %}
+        <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+        {% endif %}
+      </li>
+        <li class = " col-xs-offset-1">{{ name }}</li>
+        <li class = " col-xs-offset-1">{{ username }}</li>
         <li class = " col-xs-offset-1"><a href = "{% url 'editprofile' %}">Edit Your Profile</a></li>
       </ul>
     </div>
