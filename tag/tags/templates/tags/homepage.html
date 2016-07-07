@@ -61,8 +61,11 @@
   <h1 class="display-1">Tag</h1>
   <p class="lead">The Social Media of Adjectives</p>
   <hr class="m-y-2">
-    <a class="btn btn-primary btn-lg m-r-3" href="{% url 'works'%}" role="button">Learn more</a>
-    <a class="btn btn-primary btn-lg" href="{% url 'sign_up' %}" role="button">Sign up</a>
+    <a class="btn btn-primary btn-lg col-xs-8 col-xs-center col-xs-offset-2 hidden-sm-up" href="{% url 'works'%}" role="button">Learn more</a>
+    <a class="btn btn-primary btn-lg col-xs-8 col-xs-center col-xs-offset-2 m-t-2 hidden-sm-up" href="{% url 'sign_up' %}" role="button">Sign up</a>
+    <a class="btn btn-primary btn-lg m-r-3 hidden-xs-down" href="{% url 'works'%}" role="button">Learn more</a>
+    <a class="btn btn-primary btn-lg hidden-xs-down" href="{% url 'sign_up' %}" role="button">Sign up</a>
+
   </p>
 </div>
 <footer class="footer">
