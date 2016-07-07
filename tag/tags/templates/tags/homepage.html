@@ -30,6 +30,11 @@
     <h4>How it Works</h4>
 
   </div>
+  <div class="bg-inverse p-a-1">
+    {% if extrapic %}
+    <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+    {% endif %}
+  </div>
 </div>
 <nav class="navbar navbar-light bg-faded hidden-md-up">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
@@ -48,9 +53,16 @@
     <li class="nav-item col-xs-3">
       <a class="nav-link" href="{% url 'sign_up' %}">Sign Up</a>
     </li>
-    <li class="nav-item col-xs-3">
-      <a class="nav-link" href="{% url 'login' %}">Login</a>
-    </li>
+      {% if extrapic %}
+      <li class="nav-item col-xs-3">
+      <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+      </li>
+      {% else %}
+      <li class="nav-item col-xs-3">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+      {% endif %}
+
   </div>
   </ul>
 </nav>

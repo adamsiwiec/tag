@@ -1,45 +1,100 @@
 {% load static from staticfiles %}
+{% load crispy_forms_tags%}
 <!doctype html>
 <html>
 <head>
   <title>{{ username }} | Tag </title>
-  <link href="https://fonts.googleapis.com/css?family=Assistant:300|Lato:300|Quicksand:300,700" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-  <link rel="stylesheet" href = "{% static 'css/signup.css' %}">
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 </head>
 <body>
-    <ul id = "container">
-  <li class = "profileinfo">{{ name }}</li>
 
+  <!-- NAV /////////////////////////////////////////////////////////////// -->
+  <nav class="navbar navbar-light bg-faded">
+<div class="nav navbar-nav m-r-1 container">
+  <a class="nav-item nav-link active" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+  <a class="nav-item nav-link" href="#">Friends</a>
+  <a class="nav-item nav-link" href="#">Tags</a>
+  <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+  <div class="pull-xs-right m-r-1">
   {% if extrapic == False %}
-<li class = "profileinfo"><a href = "{% url 'profile'%}"><img  src="{% static 'icon-user-default.png' %}"></a></li>
+  <a href = "{% url 'profile'%}"><img src="{% static 'icon-user-default.png' %}"></a>
   {% else %}
-  <li class = "profileinfo"><a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a></li>
-
-  <!-- <p>{{ bio }}</p> -->
+  <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
   {% endif %}
-  <li class = "profileinfo">C: {{ creditsowned }}</li>
-</ul>
+</div>
+</div>
+</nav>
+  <!--/////////////////////////////////////////////////////////////////-->
+  <!-- CONTENT /////////////////////////////////////////////////////////////// -->
+  <div class="container">
+    {% if newfriendslist %}
+    <div class="alert alert-info col-md-7 m-t-1 m-b-3" role="alert">
+      <h4>New friends:</h4>
+      <ul>
+      {% for z in friendslist %}
+      <li>{{ z }}</li>
+      {% endfor %}
+    </ul>
+    </div>
 
-  <h1>New friends:</h1>
-  {% for z in friendslist %}
-  <p>{{ z }}</p>
-  {% endfor %}
-  <h1> Your Tags: </h1>
-  {% for x in alltogether %}
-  <p><a href = "{% url 'taghomepage' x.1 %}">{{ x.0 }}</a></p>
-  {% endfor %}
-  <h1>Your Friends:</h1>
-  <h3><a href = "{% url 'addfriends' %}">Add Friends</a></h3>
+
+    <div class = "col-md-4  col-md-offset-1 m-t-1" id="profile">
+      {% else %}
+      <div class = "col-md-8  col-md-offset-2 m-y-1" id="profile">
+      {% endif %}
+      <h3 class="col-xs-offset-1 m-t-1 ">
+        Profile
+      </h3>
+      <ul>
+        <li class = " col-xs-offset-1">Stuff</li>
+        <li class = " col-xs-offset-1">Stuff</li>
+        <li class = " col-xs-offset-1">Stuff</li>
+        <li class = " col-xs-offset-1"><a href = "{% url 'editprofile' %}">Edit Your Profile</a></li>
+      </ul>
+    </div>
+
+<div class = "col-lg-6">
+  <h1 class = "display-4 col-xs-offset-1">Friends:</h1>
+  <h3 class = "lead col-xs-offset-1"><a href = "{% url 'addfriends' %}">Add Friends</a></h3>
+  <hr>
+  <div class = "col-md-12">
   {% for y in friendslist %}
-  <p><a href = "{% url 'homepage' y %}"> {{ y }} </a></p>
+  <p class = "col-md-3 friendtag "><a href = "{% url 'homepage' y %}"> {{ y }} </a></p>
   {% endfor %}
-  <h1> Create a Tag: </h1>
-  <form method = "POST">{% csrf_token %}
-    {{form.as_p}}
-  <button type = "submit">Create Tag</button>
-  </form>
-<p><a href = "{% url 'editprofile' %}">Edit Your Profile</a></p>
+
+</div>
+</div>
+<br>
+<div class="col-lg-6">
+  <h1 class ="display-4 col-xs-offset-1"> Your Tags: </h1>
+  <a class = "lead col-xs-offset-1" href="#register-modal" data-toggle="modal" data-target="#register-modal">Create a Tag</a>
+  <hr class = "badhr">
+  <div class = "col-md-12">
+  {% for x in alltogether %}
+  <p class = "col-md-3 friendtag "><a href = "{% url 'taghomepage' x.1 %}">{{ x.0 }}</a></p>
+  {% endfor %}
+</div>
+
+  <!-- MODAL ///////////////////////////////////////////// -->
+  <div id= "register-modal" class="modal fade">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">Create a Tag</h4>
+        </div>
+        <div class="modal-body">
+          {% crispy form %}
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+</div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
 

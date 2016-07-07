@@ -12,10 +12,25 @@ from django.template import RequestContext
 
 # DISPLAYS HOW IT WORKS PAGE
 def works(request):
-    return render(request,'tags/works.html')
+    try:
+        extra = Extra.objects.get(user__username = request.user.username)
+        extrapic = extra.profileimage.url
+        bio = extra.bio
+    except:
+        extrapic = False
+        bio = ""
+    return render(request,'tags/works.html',{'extrapic':extrapic,})
 # LOG IN USER
 def login_user(request):
-    logout(request)
+    try:
+        extra = Extra.objects.get(user__username = request.user.username)
+        extrapic = extra.profileimage.url
+        bio = extra.bio
+    except:
+        extrapic = False
+        bio = ""
+
+    #logout(request)
     username = password = ''
     if request.method == 'POST':
         username = request.POST['username']
@@ -27,7 +42,7 @@ def login_user(request):
                 login(request, user)
                 return redirect('profile')
     form = LoginForm()
-    return render(request, 'tags/login.html', {'form':form})
+    return render(request, 'tags/login.html', {'form':form, 'extrapic':extrapic,})
 
 
 # PASS ON A TAG TO ANOTHER USER (NOT MEANT FOR USERS VIEWING, ONLY FOR REDIRECTS)
@@ -161,6 +176,13 @@ def view_homepage(request, username):
 
 # PAGE FOR ADDING FRIENDS BASED ON USERNAME AND SUGGESTIONS
 def addfriends(request):
+    try:
+        extra = Extra.objects.get(user = request.user)
+        extrapic = extra.profileimage.url
+        bio = extra.bio
+    except:
+        extrapic = False
+        bio = ""
     if request.method == "POST":
         form = FriendshipForm(request.POST)
         if form.is_valid():
@@ -180,10 +202,10 @@ def addfriends(request):
                 return redirect('profile')
         else:
             form = FriendshipForm()
-            return render(request, 'tags/friend.html', {'form':form})
+            return render(request, 'tags/friend.html', {'form':form, 'extrapic':extrapic,})
     else:
         form = FriendshipForm()
-        return render(request, 'tags/friend.html', {'form':form})
+        return render(request, 'tags/friend.html', {'form':form, 'extrapic':extrapic,})
 
 
 
@@ -240,7 +262,14 @@ def tagpage(request, tagid):
 def homepage(request):
     oldtags = Tag.objects.filter(created__lte = timezone.now() + datetime.timedelta(days = -1))
     oldtags.delete()
-    return render(request, "tags/homepage.html")
+    try:
+        extra = Extra.objects.get(user = request.user)
+        extrapic = extra.profileimage.url
+        bio = extra.bio
+    except:
+        extrapic = False
+        bio = ""
+    return render(request, "tags/homepage.html", {'extrapic':extrapic})
 
 
 
@@ -317,21 +346,27 @@ def user_homepage(request):
 
 # SIGN UP PAGE USING DEFAULT FORM PAGE
 def sign_up(request):
+    try:
+        extra = Extra.objects.get(user__username = request.user.username)
+        extrapic = extra.profileimage.url
+        bio = extra.bio
+    except:
+        extrapic = False
+        bio = ""
+    if request.method == "POST":
+        form = UserCreate(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            credit = Credits()
+            user.save()
+            credit.user = user
+            credit.credits = 200
+            credit.save()
 
-        if request.method == "POST":
-            form = UserCreate(request.POST)
-            if form.is_valid():
-                user = form.save(commit=False)
-                credit = Credits()
-                user.save()
-                credit.user = user
-                credit.credits = 200
-                credit.save()
-
-                return redirect('login')
-            else:
-                form = UserCreate()
-                return render(request, 'tags/sign_up.html', {'form':form})
+            return redirect('login')
         else:
             form = UserCreate()
-            return render(request, 'tags/sign_up.html', {'form':form})
+            return render(request, 'tags/sign_up.html', {'form':form, 'extrapic':extrapic,})
+    else:
+        form = UserCreate()
+        return render(request, 'tags/sign_up.html', {'form':form, 'extrapic':extrapic,})

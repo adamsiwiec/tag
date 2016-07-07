@@ -49,9 +49,15 @@
     <li class="nav-item active col-xs-3">
       <a class="nav-link" href="{% url 'sign_up' %}">Sign Up</a>
     </li>
+    {% if extrapic %}
+    <li class="nav-item col-xs-3">
+    <a href = "{% url 'profile'%}"><img id="you" src="{{ extrapic }}"></a>
+    </li>
+    {% else %}
     <li class="nav-item col-xs-3">
       <a class="nav-link" href="{% url 'login' %}">Login</a>
     </li>
+    {% endif %}
   </div>
   </ul>
 </nav>

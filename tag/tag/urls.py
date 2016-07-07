@@ -20,9 +20,10 @@ from django.contrib.auth.views import *
 from . import views
 
 urlpatterns = [
-    
+
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('tags.urls'), name = "home")
+    url(r'^', include('tags.urls'), name = "home"),
+    url('^', include('django.contrib.auth.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
