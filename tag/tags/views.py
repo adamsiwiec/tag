@@ -158,10 +158,20 @@ def view_homepage(request, username):
 
 # FRIENDS
     Friends = Friendship.objects.filter(creator__username = username)
+    my_friends = Friendship.objects.filter(creator__username = request.user.username)
+    my_friendslist = list(my_friends.order_by())
+    print(my_friendslist)
     friendslist = list(Friends.order_by())
     newfriends = Friendship.objects.filter(creator__username = username, created__gte = timezone.now() - datetime.timedelta(days = 2))
     newfriendslist = list(newfriends.order_by())
-
+# PERMISSION TO REMOVE FRIEND
+    try:
+        if Friendship.objects.get(friend__username = username) in my_friendslist:
+            permission = True
+        else:
+            permission = False
+    except:
+        return redirect("profile")
 # CREATE A TEMPLATE COMPATIBLE LIST OF FRIENDS
     if len(newfriendslist) > 8:
         newfriendslist = ["You have {} new friends".format(len(newfriendslist))]
@@ -178,7 +188,7 @@ def view_homepage(request, username):
     user = User.objects.get(username = username)
     name = user.first_name + " " + user.last_name
 
-    return render(request, 'tags/viewprofile.html', {'creditsowned':creditsowned, 'bio': bio, 'BASE_DIR':settings.BASE_DIR, 'extrapic': extrapic, 'extrapic1': extrapic1, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'username1':username, 'alltogether':alltogether})
+    return render(request, 'tags/viewprofile.html', {'permission':permission, 'creditsowned':creditsowned, 'bio': bio, 'BASE_DIR':settings.BASE_DIR, 'extrapic': extrapic, 'extrapic1': extrapic1, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'username1':username, 'alltogether':alltogether})
 
 
 
@@ -196,7 +206,7 @@ def addfriends(request):
         if form.is_valid():
             try:
                 if request.POST['username'] == request.user.username:
-                    redirect('profile')
+                    return redirect('profile')
                 newfriendship = Friendship()
                 newfriendship.creator = request.user
                 newfriend = User.objects.get(username = request.POST['username'])

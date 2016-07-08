@@ -14,27 +14,28 @@
   <body>
     <!-- Nav -->
     <div class="collapse" id="exCollapsingNavbar">
+      <div class="bg-inverse p-a-1">
+        {% if extrapic %}
+        <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+        {% endif %}
+      </div>
   <div class="bg-inverse p-a-1">
-    <h4>Home</h4>
+    <a href = "{% url 'home' %}"><h4>Home</h4></a>
     <hr>
   </div>
   <div class="bg-inverse p-a-1">
-    <h4>Login</h4>
+    <a href ="{% url 'login' %}"><h4>Login</h4></a>
     <hr>
   </div>
   <div class="bg-inverse p-a-1">
-    <h4>Sign up</h4>
+    <a href ="{% url 'sign_up' %}"><h4>Sign up</h4></a>
     <hr>
   </div>
   <div class="bg-inverse p-a-1">
-    <h4>How it Works</h4>
+    <a href ="{% url 'works' %}"><h4>How it Works</h4></a>
 
   </div>
-  <div class="bg-inverse p-a-1">
-    {% if extrapic %}
-    <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
-    {% endif %}
-  </div>
+
 </div>
 <nav class="navbar navbar-light bg-faded hidden-md-up">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
@@ -70,7 +71,8 @@
 <!-- Main Catcher -->
 <div class="jumbotron">
   <div class="container text-xs-center">
-  <h1 class="display-1">Tag</h1>
+  <h1 class="display-1">Tag<span class="label label-primary beta">Beta</span></h1>
+
   <p class="lead">The Social Media of Adjectives</p>
   <hr class="m-y-2">
     <a class="btn btn-primary btn-lg col-xs-8 col-xs-center col-xs-offset-2 hidden-sm-up" href="{% url 'works'%}" role="button">Learn more</a>

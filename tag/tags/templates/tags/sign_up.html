@@ -15,6 +15,30 @@
   <body>
     <!-- Nav -->
     <div class="collapse" id="exCollapsingNavbar">
+      <div class="bg-inverse p-a-1">
+        {% if extrapic %}
+        <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+        {% endif %}
+      </div>
+  <div class="bg-inverse p-a-1">
+    <a href = "{% url 'home' %}"><h4>Home</h4></a>
+    <hr>
+  </div>
+  <div class="bg-inverse p-a-1">
+    <a href ="{% url 'login' %}"><h4>Login</h4></a>
+    <hr>
+  </div>
+  <div class="bg-inverse p-a-1">
+    <a href ="{% url 'sign_up' %}"><h4>Sign up</h4></a>
+    <hr>
+  </div>
+  <div class="bg-inverse p-a-1">
+    <a href ="{% url 'works' %}"><h4>How it Works</h4></a>
+
+  </div>
+
+</div>
+    <div class="collapse" id="exCollapsingNavbar">
   <div class="bg-inverse p-a-1">
     <h4>Home</h4>
     <hr>
