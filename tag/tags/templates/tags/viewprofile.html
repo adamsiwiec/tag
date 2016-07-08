@@ -1,0 +1,92 @@
+{% load static from staticfiles %}
+{% load crispy_forms_tags%}
+<!doctype html>
+<html>
+<head>
+  <title>{{ username }} | Tag </title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+
+  <!-- NAV /////////////////////////////////////////////////////////////// -->
+  <nav class="navbar navbar-light bg-faded">
+<div class="nav navbar-nav m-r-1 container">
+  <a class="nav-item nav-link active" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+  <a class="nav-item nav-link" href="#">Friends</a>
+  <a class="nav-item nav-link" href="#">Tags</a>
+  <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+  <div class="pull-xs-right m-r-1">
+  {% if extrapic == False %}
+  <a href = "{% url 'profile'%}"><img src="{% static 'icon-user-default.png' %}"></a>
+  {% else %}
+  <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+  {% endif %}
+</div>
+</div>
+</nav>
+  <!--/////////////////////////////////////////////////////////////////-->
+  <!-- CONTENT /////////////////////////////////////////////////////////////// -->
+  <div class="container">
+    {% if newfriendslist %}
+    <div class="alert alert-info col-md-7 m-t-1 m-b-3" role="alert">
+      <h4>New friends:</h4>
+      <ul>
+      {% for z in friendslist %}
+      <li>{{ z }}</li>
+      {% endfor %}
+    </ul>
+    </div>
+
+
+    <div class = "col-md-4  col-md-offset-1 m-t-1" id="profile">
+      {% else %}
+      <div class = "col-md-8  col-md-offset-2 m-y-1" id="profile">
+      {% endif %}
+      <h3 class="col-xs-offset-1 m-t-1 ">
+        Profile
+      </h3>
+      <ul>
+        <li class = " col-xs-offset-1">
+        {% if extrapic1 == False %}
+        <a href = "{% url 'profile'%}"><img src="{% static 'icon-user-default.png' %}"></a>
+        {% else %}
+        <a href = "{% url 'profile'%}"><img  src="{{ extrapic1 }}"></a>
+        {% endif %}
+      </li>
+        <li class = " col-xs-offset-1">{{ name }}</li>
+        <li class = " col-xs-offset-1">{{ username1 }}</li>
+      </ul>
+    </div>
+
+<div class = "col-lg-6">
+  <h1 class = "display-4 col-xs-offset-1">Friends:</h1>
+  <hr>
+  <div class = "col-md-12">
+  {% for y in friendslist %}
+  <p class = "col-md-3 friendtag "><a href = "{% url 'homepage' y %}"> {{ y }} </a></p>
+  {% endfor %}
+
+</div>
+</div>
+<br>
+<div class="col-lg-6">
+  <h1 class ="display-4 col-xs-offset-1"> Tags: </h1>
+  <hr class = "badhr2">
+  <div class = "col-md-12">
+  {% for x in alltogether %}
+  <p class = "col-md-3 friendtag "><a href = "{% url 'taghomepage' x.1 %}">{{ x.0 }}</a></p>
+  {% endfor %}
+</div>
+
+
+</div>
+</div>
+{% if permission %}
+<p class = "text-xs-center footer"><a href = "{% url 'removefriend' username1 %}">Remove Friend</a></p>
+{% endif %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+
+</body>
+</html>

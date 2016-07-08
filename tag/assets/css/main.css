@@ -1,0 +1,27 @@
+form {
+  margin-top: 10vh !important;
+}
+html {
+  background: #ECEEEF !important;
+}
+div.jumbotron {
+  padding-top: 20vh !important;
+  min-height: 100vh !important;
+}
+div.col-md-5 {
+  margin-top: 50px !important;
+  margin-bottom: 50px !important;
+}
+img {
+  height: 100px !important;
+  width: 100px !important;
+}
+body.bg-info {
+  background-color: #ECEEEF !important;
+  color: gray !important;
+}
+#you {
+  margin-top: 4px !important;
+  height: 30px !important;
+  width: 30px !important;
+}

@@ -1,0 +1,92 @@
+{% load static from staticfiles%}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Login | Tag</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+  </head>
+  <body>
+    <!-- Nav -->
+    <div class="collapse" id="exCollapsingNavbar">
+      <div class="bg-inverse p-a-1">
+        {% if extrapic %}
+        <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+        {% endif %}
+      </div>
+  <div class="bg-inverse p-a-1">
+    <a href = "{% url 'home' %}"><h4>Home</h4></a>
+    <hr>
+  </div>
+  <div class="bg-inverse p-a-1">
+    <a href ="{% url 'login' %}"><h4>Login</h4></a>
+    <hr>
+  </div>
+  <div class="bg-inverse p-a-1">
+    <a href ="{% url 'sign_up' %}"><h4>Sign up</h4></a>
+    <hr>
+  </div>
+  <div class="bg-inverse p-a-1">
+    <a href ="{% url 'works' %}"><h4>How it Works</h4></a>
+
+  </div>
+
+</div>
+    <div class="collapse" id="exCollapsingNavbar">
+  <div class="bg-inverse p-a-1">
+    <h4>Home</h4>
+    <hr>
+  </div>
+  <div class="bg-inverse p-a-1">
+    <h4>Login</h4>
+    <hr>
+  </div>
+  <div class="bg-inverse p-a-1">
+    <h4>Sign up</h4>
+    <hr>
+  </div>
+  <div class="bg-inverse p-a-1">
+    <h4>How it Works</h4>
+
+  </div>
+</div>
+<nav class="navbar navbar-light bg-faded hidden-md-up">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
+    &#9776;
+  </button>
+</nav>
+    <nav class="navbar-fixed-top navbar-dark bg-primary  hidden-sm-down ">
+  <ul class="nav navbar-nav ">
+    <div class ="container text-xs-center col-md-10 col-xs-offset-1">
+    <li class="nav-item col-xs-3">
+      <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item col-xs-2">
+      <a class="nav-link" href="{% url 'works' %}">How it Works</a>
+    </li>
+    <li class="nav-item col-xs-3">
+      <a class="nav-link" href="{% url 'sign_up' %}">Sign Up</a>
+    </li>
+      {% if extrapic %}
+      <li class="nav-item col-xs-3">
+      <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+      </li>
+      {% else %}
+      <li class="nav-item col-xs-3">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+      {% endif %}
+  </div>
+  </ul>
+</nav>
+  {% crispy form %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+  </body>
+  </html>

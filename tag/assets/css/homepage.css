@@ -1,0 +1,35 @@
+div.jumbotron {
+  padding-top: 20vh !important;
+  min-height: 100vh !important;
+}
+form {
+  margin-top: 10vh;
+}
+footer {
+  margin-top: 35vh;
+}
+p.lead {
+  font-size: 24px;
+}
+img {
+  margin-top: 4px;
+  height: 30px;
+  width: 30px;
+}
+
+.beta {
+  vertical-align: top;
+  display: inline-block;
+  height: 20px;
+  width: 40px;
+  font-size: 13px;
+  margin-top:30px;
+  margin-left: 10px;
+}
+
+/* SOMEDAY :)
+.btn-primary{
+  margin-right: 30px !important;
+  margin-left: 30px !important;
+}
+*/

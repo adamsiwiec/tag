@@ -1,0 +1,41 @@
+{% load static from staticfiles %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html>
+<head>
+
+  <title> Edit Profile | Tag </title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+  <link rel="stylesheet" href = "{% static 'css/profile.css' %}">
+</head>
+<body>
+  <nav class="navbar navbar-light bg-faded">
+<div class="nav navbar-nav m-r-1 container">
+  <a class="nav-item nav-link active" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+  <a class="nav-item nav-link" href="#">Friends</a>
+  <a class="nav-item nav-link" href="#">Tags</a>
+  <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+  <div class="pull-xs-right m-r-1">
+  {% if extrapic == False %}
+  <a href = "{% url 'profile'%}"><img src="{% static 'icon-user-default.png' %}"></a>
+  {% else %}
+  <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+  {% endif %}
+</div>
+</div>
+</nav>
+
+
+
+
+<div class = "container">
+    {% crispy form %}
+</div>
+<div class = "container text-xs-center" id = "password">
+  <p class = "password_change"><a href= "{% url 'password_change' %}"> Change your Password</a></p>
+  <p class = "password_change"><a href= "{% url 'password_reset' %}"> Reset your Password</a></p>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+</body>
+</html>

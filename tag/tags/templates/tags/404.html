@@ -1,0 +1,23 @@
+{% load static from staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    Tag | The Social Media of Adjectives
+  </title>
+  <link href="https://fonts.googleapis.com/css?family=Assistant:300|Lato:300|Quicksand:300,700" rel="stylesheet">
+  <link rel="stylesheet" href = "{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href = "{% static 'css/main.css' %}">
+</head>
+<body>
+  <div class = "head">
+  <p class = "nav"><a href = "{% url 'sign_up' %}">Sign up</a></p>
+  <p class = "nav"><a href = "{% url 'login' %}">Login</a></p>
+  <p class = "nav"><a href = "{% url 'profile' %}">Profile</a></p>
+  </div>
+  <br>
+<h1 id = "tag"> Sorry </h1>
+<h1 id = "desc"> This Page doesn't exist </h1>
+
+</body>
+</html>
