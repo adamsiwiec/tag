@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
+
+
 
 
 # USED FOR MODEL OF TAGS
@@ -33,11 +37,11 @@ class Friendship(models.Model):
 class Extra(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     bio = models.CharField(max_length = 300, blank = True)
-    profileimage = models.ImageField( upload_to = "profilepics", blank = True)
+    profileimage = models.ImageField( upload_to = "profilepics", blank = True, default = "/app/tag/staticfiles/icon-user-default.png")
     def __str__(self):
         return self.user.username
 
-        
+
 # USED FOR KEEPING TRACK OF CREDITS
 class Credits(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)

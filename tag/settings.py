@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tags',
     'crispy_forms',
+    
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
@@ -129,7 +130,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
-print(os.path.join(PROJECT_ROOT, 'static'))
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'tags/images')
 # MEDIA_ROOT = "/Users/adamsiwiec/Desktop/Tag/tag/tags/images/"
 MEDIA_URL = "/images/"

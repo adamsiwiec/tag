@@ -388,6 +388,9 @@ def sign_up(request):
         if form.is_valid():
             user = form.save(commit=False)
             credit = Credits()
+            extra = Extra()
+            extra.user = user
+            extra.save()
             user.save()
             credit.user = user
             credit.credits = 200
