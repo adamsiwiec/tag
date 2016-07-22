@@ -1,12 +1,73 @@
-# tag
-A social network for tagging. Create and pass on unique tags to your friends.
+# Tag
 
-Please Note: This is not ready for deployment yet.
+The Social Media of Adjectives. Create and share unique tags (similar to hastags or short phrases) with your friends and start a streak to rack up credits.
 
-To run:
+**[Currently Live here](https://tagyourit.herokuapp.com)**
 
-1. Install Python and Django.
-2. Fork me to your local computer.
-3. Navigate to me through terminal until you find the directory that has manage.py in it.
-4. Type "python manage.py runserver"
-5. Go to "localhost:8000" in your web browser.
+### Getting Started
+
+You will need to install a couple of things locally, plus start up a virtual environment to isolate the program.
+First off you will need Python 3.5.X installed locally and will need a copy of pip.
+After that run this to install your virtual environment tool:
+
+```
+pip install virtualenv
+```
+Next, download the zip at the top of the page, unzip it and navigate to the folder through the terminal.
+
+```
+cd /path/to/me/
+```
+Start up your virtualenv, using a Python 3 Interpreter:
+
+```
+virtualenv -p /path/to/python3 venv
+```
+Activate:
+
+```
+source venv/bin/activate
+```
+Install dependencies:
+
+```
+pip install -r requirements.txt
+```
+Run the server:
+
+```
+python manage.py runserver
+```
+
+Now check it out in your browser at [localhost:8000](http://localhost:8000)
+
+
+## To do
+
+* ~~Deploy on Heroku~~
+* Form Validation
+* Convert all Forms to crispy-forms
+* Rework the UI
+* Add the Friends and Tags page
+* Use django-imagekit to optimize image quality, size, etc.
+* Squash all bugs
+
+
+
+## Authors
+
+* **[Adam Siwiec](http://adamsiwiec.com)**  - creator - [Github Account](https://github.com/adamsiwiec)
+
+See also the list of [contributors](https://github.com/adamsiwiec/tag/contributors) who participated in this project.
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+
+## Acknowledgments
+
+* Thanks to ZB and Edgar
+* Also thanks to Django
+
