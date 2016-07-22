@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from tag.models import *
+from tags.models import *
 # Create your tests here.
 
 class UserCreationTestCase(TestCase):
