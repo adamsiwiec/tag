@@ -4,6 +4,9 @@ The Social Media of Adjectives. Create and share unique tags (similar to hastags
 
 **[Currently Live here](https://tagyourit.herokuapp.com)**
 
+[![Build Status](https://travis-ci.org/adamSiwiec/tag.svg?branch=master)](https://travis-ci.org/adamSiwiec/tag)
+
+
 ### Getting Started
 
 You will need to install a couple of things locally, plus start up a virtual environment to isolate the program.
@@ -45,6 +48,7 @@ Now check it out in your browser at [localhost:8000](http://localhost:8000)
 ## To do
 
 * ~~Deploy on Heroku~~
+* Add tests
 * Form Validation
 * Convert all Forms to crispy-forms
 * Rework the UI
