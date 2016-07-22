@@ -72,6 +72,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Thanks to ZB and Edgar
+* Thanks to ZB, Jerome, and Edgar
 * Also thanks to Django
 
