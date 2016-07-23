@@ -1,6 +1,8 @@
+boto==2.42.0
 dj-database-url==0.4.1
 Django==1.9.8
 django-crispy-forms==1.6.0
+django-storages==1.4.1
 gunicorn==19.6.0
 Pillow==3.3.0
 psycopg2==2.6.2
