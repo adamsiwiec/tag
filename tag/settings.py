@@ -133,7 +133,7 @@ STATICFILES_DIRS = (
 )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'tags/images')
 # MEDIA_ROOT = "/Users/adamsiwiec/Desktop/Tag/tag/tags/images/"
-MEDIA_URL = "/images/"
+#MEDIA_URL = "/images/"
 
 # Update database configuration with $DATABASE_URL.
 import dj_database_url
@@ -167,4 +167,14 @@ STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 
 # Tell the staticfiles app to use S3Boto storage when writing the collected static files (when
 # you run `collectstatic`).
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+STATICFILES_LOCATION = 'static'
+MEDIAFILES_LOCATION = 'media'
+import tag.custom_storages
+STATICFILES_STORAGE = 'tag.custom_storages.StaticStorage'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+
+
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+DEFAULT_FILE_STORAGE = 'tag.custom_storages.MediaStorage'
