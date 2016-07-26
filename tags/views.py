@@ -398,8 +398,9 @@ def sign_up(request):
 
             return redirect('login')
         else:
+            form_errors = form.errors
             form = UserCreate()
-            return render(request, 'tags/sign_up.html', {'form':form, 'extrapic':extrapic,})
+            return render(request, 'tags/sign_up.html', {'form':form, 'form_errors':form_errors, 'extrapic':extrapic,})
     else:
         form = UserCreate()
         return render(request, 'tags/sign_up.html', {'form':form, 'extrapic':extrapic,})

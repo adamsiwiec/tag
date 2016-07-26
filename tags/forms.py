@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import *
 from .models import *
+from django.core import validators
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
 from crispy_forms.bootstrap import FormActions
@@ -9,6 +10,7 @@ from crispy_forms.bootstrap import FormActions
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=30)
     password = forms.CharField(max_length=300,widget=forms.PasswordInput)
+
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
 
@@ -30,7 +32,7 @@ class LoginForm(forms.Form):
 class UserCreate(UserCreationForm):
     first_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': ' John'}))
     last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': ' Doe'}))
-    email = forms.EmailField(max_length=75, widget=forms.TextInput(attrs={'placeholder': ' johndoe@example.com'}))
+    email = forms.EmailField(max_length=75,label = "Email", widget=forms.TextInput(attrs={'placeholder': ' johndoe@example.com'}))
     class Meta:
         model = User
         fields = ['first_name', 'last_name','username', 'email',]
