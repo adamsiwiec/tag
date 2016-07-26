@@ -37,8 +37,8 @@ class Friendship(models.Model):
 # USED FOR OPTIONAL PROFILE INFORMATION
 class Extra(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-    bio = models.CharField(max_length = 300, blank = True)
-    profileimage = models.ImageField( upload_to = "profilepics", blank = True, default = url)
+    bio = models.CharField(max_length = 300, blank = True, null = True)
+    profileimage = models.ImageField( upload_to = "profilepics",null = True, blank = True, default = url)
     def __str__(self):
         return self.user.username
 

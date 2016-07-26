@@ -20,17 +20,17 @@
   <a class="nav-item nav-link" href="#">Tags</a>
   <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
   <div class="pull-xs-right m-r-1">
-  {% if extrapic == False %}
-  <a href = "{% url 'profile'%}"><img src="{% static 'icon-user-default.png' %}"></a>
-  {% else %}
   <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
-  {% endif %}
+
 </div>
 </div>
 </nav>
   <!--/////////////////////////////////////////////////////////////////-->
   <!-- CONTENT /////////////////////////////////////////////////////////////// -->
-  <div class="container">
+  <div class="container p-b-3">
+    {% if formerrors %}
+    <div class ="alert alert-danger" role="alert">{{ formerrors | safe }}</div>
+    {% endif %}
     {% if newfriendslist %}
     <div class="alert alert-info col-md-7 m-t-1 m-b-3" role="alert">
       <h4>New friends:</h4>
@@ -42,6 +42,7 @@
     </div>
 
 
+
     <div class = "col-md-4  col-md-offset-1 m-t-1" id="profile">
       {% else %}
       <div class = "col-md-8  col-md-offset-2 m-y-1" id="profile">
@@ -51,11 +52,7 @@
       </h3>
       <ul>
         <li class = " col-xs-offset-1">
-        {% if extrapic == False %}
-        <a href = "{% url 'profile'%}"><img src="{% static 'icon-user-default.png' %}"></a>
-        {% else %}
         <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
-        {% endif %}
       </li>
         <li class = " col-xs-offset-1">{{ name }}</li>
         <li class = " col-xs-offset-1">{{ username }}</li>

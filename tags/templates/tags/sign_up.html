@@ -67,7 +67,9 @@
   </ul>
 </nav>
 <div  class = "container p-t-3">
+  {% if form_errors %}
   <div class="alert alert-danger " role="alert">{{ form_errors | safe }}</div>
+  {% endif %}
   {% crispy form %}
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>

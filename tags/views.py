@@ -9,6 +9,9 @@ import datetime
 from django.conf import settings
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.contrib.staticfiles.templatetags.staticfiles import static
+
+
 
 # DISPLAYS HOW IT WORKS PAGE
 def works(request):
@@ -205,7 +208,7 @@ def addfriends(request):
         form = FriendshipForm(request.POST)
         if form.is_valid():
             try:
-                if request.POST['username'] == request.user.username:
+                if form.cleaned_data['username'] == request.user.username:
                     return redirect('profile')
                 newfriendship = Friendship()
                 newfriendship.creator = request.user
@@ -217,10 +220,12 @@ def addfriends(request):
                 newfriendship.save()
                 return redirect('profile')
             except:
-                return redirect('profile')
+                formerror = "There is no user with that username"
+                form = FriendshipForm()
+                return render(request, 'tags/friend.html', {'formerror': formerror, 'form':form, 'extrapic':extrapic,})
         else:
             form = FriendshipForm()
-            return render(request, 'tags/friend.html', {'form':form, 'extrapic':extrapic,})
+            return render(request, 'tags/friend.html', {'formerror': formerror, 'form':form, 'extrapic':extrapic,})
     else:
         form = FriendshipForm()
         return render(request, 'tags/friend.html', {'form':form, 'extrapic':extrapic,})
@@ -363,9 +368,10 @@ def user_homepage(request):
 
                 return redirect('profile')
             else:
-
+                formerrors = form.errors
+                print(form.errors)
                 form = TagForm()
-                return render(request, 'tags/profile.html', { 'creditsowned':creditsowned, 'bio':bio,'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'alltogether':alltogether})
+                return render(request, 'tags/profile.html', { 'formerrors':formerrors, 'creditsowned':creditsowned, 'bio':bio,'extrapic':extrapic, 'newfriendslist':newfriendslist, 'friendslist': friendslist, 'name': name, 'username': request.user.username, 'form':form, 'alltogether':alltogether})
 
         else:
 
@@ -391,6 +397,7 @@ def sign_up(request):
             extra = Extra()
             user.save()
             extra.user = user
+            extra.profileimage = static('icon-user-default.png')
             extra.save()
             credit.user = user
             credit.credits = 200

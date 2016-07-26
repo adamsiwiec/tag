@@ -1,10 +1,17 @@
 from django import forms
 from django.contrib.auth.forms import *
 from .models import *
+import re
 from django.core import validators
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
 from crispy_forms.bootstrap import FormActions
+
+def valid_tag(tag):
+    if re.search(r"[0-9\\/_0-9\!@#\$%&\*'\[\]\}\{\?:;\.,<>\=\+\-\)\(\^`~\|]", tag):
+        raise ValidationError(_("Please don't use numbers or symbols"))
 
 # LOG IN USER
 class LoginForm(forms.Form):
@@ -58,7 +65,8 @@ class UserCreate(UserCreationForm):
 
 # CREATES A TAG
 class TagForm(forms.ModelForm):
-    name = forms.CharField(max_length = 25, widget=forms.TextInput(attrs={'placeholder': 'e.g "Runner"', 'autofocus':'autofocus'}))
+    name = forms.CharField(max_length = 25,validators = [valid_tag], widget=forms.TextInput(attrs={'placeholder': 'e.g "Runner"', 'autofocus':'autofocus'}))
+#
     class Meta:
         model = Tag
         fields = ['name']
@@ -73,6 +81,14 @@ class PassForm(forms.ModelForm):
     class Meta:
         model = LoginUser
         fields = ['username']
+    helper = FormHelper()
+    helper.form_method = 'POST'
+    helper.form_class = 'col-lg-8  col-lg-offset-2'
+    helper.layout = Layout(
+        'username',
+        FormActions(Submit('Pass', 'Pass', css_class="btn-primary"))
+
+    )
 
 
 # CREATES A NEW FRIEND
@@ -82,11 +98,30 @@ class FriendshipForm(forms.ModelForm):
         model = Friendship
         fields = ['username']
 
+    helper = FormHelper()
+    helper.form_method = 'POST'
+    helper.form_class = 'col-lg-8  col-lg-offset-2'
+    helper.layout = Layout(
+        'username',
+        FormActions(Submit('Add', 'Add', css_class="btn-primary"))
+
+    )
+
 
 # ADDS EXTRA PROFILE INFORMATION
 class ExtraForm(forms.ModelForm):
-    bio = forms.CharField(max_length = 300, widget=forms.TextInput(attrs={'autofocus':'autofocus'}))
-    profileimage = forms.ImageField()
+    bio = forms.CharField(max_length = 300, required = False,  widget=forms.TextInput(attrs={'autofocus':'autofocus'}))
+    profileimage = forms.ImageField(required = False)
     class Meta:
         model = Extra
         fields = ['bio', 'profileimage']
+
+    helper = FormHelper()
+    helper.form_method = 'POST'
+    helper.form_class = 'col-lg-8  col-lg-offset-2 m-y-3'
+    helper.layout = Layout(
+        'bio',
+        'profileimage',
+        FormActions(Submit('Submit', 'Submit', css_class="btn-primary"))
+
+    )
