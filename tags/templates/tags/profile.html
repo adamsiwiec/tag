@@ -20,7 +20,11 @@
   <a class="nav-item nav-link" href="#">Tags</a>
   <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
   <div class="pull-xs-right m-r-1">
+    {% if extrapic %}
   <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+    {% else %}
+  <a href = "{% url 'profile'%}"><img  src="{% static 'icon-user-default.png'%}"></a>
+  {% endif %}
 
 </div>
 </div>
@@ -52,7 +56,11 @@
       </h3>
       <ul>
         <li class = " col-xs-offset-1">
+          {% if extrapic %}
         <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+          {% else %}
+        <a href = "{% url 'profile'%}"><img  src="{% static 'icon-user-default.png'%}"></a>
+        {% endif %}
       </li>
         <li class = " col-xs-offset-1">{{ name }}</li>
         <li class = " col-xs-offset-1">{{ username }}</li>

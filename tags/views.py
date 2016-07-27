@@ -394,11 +394,11 @@ def sign_up(request):
         if form.is_valid():
             user = form.save(commit=False)
             credit = Credits()
-            extra = Extra()
+            #extra = Extra()
             user.save()
-            extra.user = user
-            extra.profileimage = static('icon-user-default.png')
-            extra.save()
+            #extra.user = user
+
+            #extra.save()
             credit.user = user
             credit.credits = 200
             credit.save()

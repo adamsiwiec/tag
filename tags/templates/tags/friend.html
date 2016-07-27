@@ -22,7 +22,11 @@
   <a class="nav-item nav-link" href="#">Tags</a>
   <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
   <div class="pull-xs-right m-r-1">
+    {% if extrapic %}
   <a href = "{% url 'profile'%}"><img  src="{{ extrapic }}"></a>
+    {% else %}
+  <a href = "{% url 'profile'%}"><img  src="{% static 'icon-user-default.png'%}"></a>
+  {% endif %}
 </div>
 </div>
 </nav>
