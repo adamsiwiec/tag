@@ -49,12 +49,12 @@ Now check it out in your browser at [localhost:8000](http://localhost:8000)
 
 * ~~Deploy on Heroku~~
 * Add tests
-* Form Validation
-* Convert all Forms to crispy-forms
+* ~~Form Validation~~
+* ~~Convert all Forms to crispy-forms~~
 * Rework the UI
 * Add the Friends and Tags page
 * Use django-imagekit to optimize image quality, size, etc.
-* Squash all bugs
+* Squash all bugs ( so close but so far )
 
 
 
