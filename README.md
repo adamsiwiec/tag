@@ -46,7 +46,7 @@ Now check it out in your browser at [localhost:8000](http://localhost:8000)
 
 
 ## To do
-
+* Create a REST API
 * ~~Deploy on Heroku~~
 * Add tests
 * ~~Form Validation~~
