@@ -9,14 +9,17 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout
 from crispy_forms.bootstrap import FormActions
 
+
 def valid_tag(tag):
-    if re.search(r"[0-9\\/_0-9\!@#\$%&\*'\[\]\}\{\?:;\.,<>\=\+\-\)\(\^`~\|]", tag):
+    if re.search(r"[0-9\\/_0-9\!@#\$%&\*'\[\]\}\{\?:;\.,<>\=\+\-\)\(\^`~\|]",
+                 tag):
         raise ValidationError(_("Please don't use numbers or symbols"))
+
 
 # LOG IN USER
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=30)
-    password = forms.CharField(max_length=300,widget=forms.PasswordInput)
+    password = forms.CharField(max_length=300, widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
@@ -37,12 +40,21 @@ class LoginForm(forms.Form):
 
 # CREATES A NEW USER
 class UserCreate(UserCreationForm):
-    first_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': ' John'}))
-    last_name = forms.CharField(max_length=30, widget=forms.TextInput(attrs={'placeholder': ' Doe'}))
-    email = forms.EmailField(max_length=75,label = "Email", widget=forms.TextInput(attrs={'placeholder': ' johndoe@example.com'}))
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name','username', 'email',]
+    first_name = forms.CharField(max_length=30, widget=forms.TextInput(
+                                     attrs={'placeholder': ' John'}))
+
+    last_name = forms.CharField(max_length=30, widget=forms.TextInput(
+                                     attrs={'placeholder': ' Doe'}))
+
+    email = forms.EmailField(max_length=75, label="Email",
+                             widget=forms.TextInput(
+                                 attrs={'placeholder': ' johndoe@example.com'}))
+
+
+class Meta:
+    model = User
+    fields = ['first_name', 'last_name', 'username', 'email']
+
     def __init__(self, *args, **kwargs):
         super(UserCreate, self).__init__(*args, **kwargs)
 
@@ -63,10 +75,14 @@ class UserCreate(UserCreationForm):
 
     )
 
+
 # CREATES A TAG
 class TagForm(forms.ModelForm):
-    name = forms.CharField(max_length = 25,validators = [valid_tag], widget=forms.TextInput(attrs={'placeholder': 'e.g "Runner"', 'autofocus':'autofocus'}))
-#
+    name = forms.CharField(max_length=25, validators=[valid_tag],
+                           widget=forms.TextInput(
+                               attrs={'placeholder': 'e.g "Runner"',
+                                      'autofocus': 'autofocus'}))
+
     class Meta:
         model = Tag
         fields = ['name']
@@ -77,7 +93,8 @@ class TagForm(forms.ModelForm):
 
 # PASSES ON A TAG
 class PassForm(forms.ModelForm):
-    username = forms.CharField(max_length = 30)
+    username = forms.CharField(max_length=30)
+
     class Meta:
         model = LoginUser
         fields = ['username']
@@ -93,7 +110,10 @@ class PassForm(forms.ModelForm):
 
 # CREATES A NEW FRIEND
 class FriendshipForm(forms.ModelForm):
-    username = forms.CharField(max_length = 30, widget=forms.TextInput(attrs={'autofocus':'autofocus'}))
+    username = forms.CharField(max_length=30,
+                               widget=forms.TextInput(
+                                   attrs={'autofocus': 'autofocus'}))
+
     class Meta:
         model = Friendship
         fields = ['username']
@@ -110,8 +130,11 @@ class FriendshipForm(forms.ModelForm):
 
 # ADDS EXTRA PROFILE INFORMATION
 class ExtraForm(forms.ModelForm):
-    bio = forms.CharField(max_length = 300, required = False,  widget=forms.TextInput(attrs={'autofocus':'autofocus'}))
-    profileimage = forms.ImageField(required = False)
+    bio = forms.CharField(max_length=300, required=False,
+                          widget=forms.TextInput(
+                              attrs={'autofocus': 'autofocus'}))
+    profileimage = forms.ImageField(required=False)
+
     class Meta:
         model = Extra
         fields = ['bio', 'profileimage']

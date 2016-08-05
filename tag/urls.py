@@ -22,8 +22,11 @@ from . import views
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('tags.urls'), name = "home"),
-    url('^', include('django.contrib.auth.urls')),
+    url(r'^', include('tags.urls'), name="home"),
+    url(r'^', include('django.contrib.auth.urls')),
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
+
 ]
 
 urlpatterns += staticfiles_urlpatterns()
