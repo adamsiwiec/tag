@@ -15,6 +15,18 @@ from . import models
 from . import serializers
 
 
+def getextra(request):
+    try:
+        extra = Extra.objects.get(user__username=request.user.username)
+        extrapic = extra.profileimage.url
+        bio = extra.bio
+    except:
+        extrapic = False
+        bio = ""
+
+    return extrapic, bio
+
+
 class ListTags(generics.ListCreateAPIView):
     queryset = models.Tag.objects.all()
     serializer_class = serializers.TagSerializer
@@ -27,25 +39,13 @@ class UpdateTag(generics.RetrieveUpdateDestroyAPIView):
 
 # DISPLAYS HOW IT WORKS PAGE
 def works(request):
-    try:
-        extra = Extra.objects.get(user__username=request.user.username)
-        extrapic = extra.profileimage.url
-        bio = extra.bio
-    except:
-        extrapic = False
-        bio = ""
+    extrapic, bio = getextra(request)
     return render(request, 'tags/works.html', {'extrapic': extrapic})
 
 
 # LOG IN USER
 def login_user(request):
-    try:
-        extra = Extra.objects.get(user__username=request.user.username)
-        extrapic = extra.profileimage.url
-        bio = extra.bio
-    except:
-        extrapic = False
-        bio = ""
+    extrapic, bio = getextra(request)
 
     username = password = ''
     if request.method == 'POST':
@@ -96,13 +96,7 @@ def editprofile(request):
     user = User.objects.get(username=request.user.username)
     name = user.first_name + " " + user.last_name
 # EXTRA PROFILE INFO
-    try:
-        extra = Extra.objects.get(user__username=request.user.username)
-        extrapic = extra.profileimage.url
-        bio = extra.bio
-    except:
-        extrapic = False
-        bio = ""
+    extrapic, bio = getextra(request)
 
     if request.method == "POST":
         form = ExtraForm(request.POST, request.FILES)
@@ -161,13 +155,8 @@ def view_homepage(request, username):
     if username == request.user.username:
         return redirect('profile')
     # EXTRA PROFILE INFO
-    try:
-        extra = Extra.objects.get(user__username=request.user.username)
-        extrapic = extra.profileimage.url
-        bio = extra.bio
-    except:
-        extrapic = False
-        bio = ""
+    extrapic, bio = getextra(request)
+
     try:
         extra = Extra.objects.get(user__username=username)
         extrapic1 = extra.profileimage.url
@@ -239,13 +228,8 @@ def view_homepage(request, username):
 
 # PAGE FOR ADDING FRIENDS BASED ON USERNAME AND SUGGESTIONS
 def addfriends(request):
-    try:
-        extra = Extra.objects.get(user=request.user)
-        extrapic = extra.profileimage.url
-        bio = extra.bio
-    except:
-        extrapic = False
-        bio = ""
+    extrapic, bio = getextra(request)
+
     if request.method == "POST":
         form = FriendshipForm(request.POST)
         if form.is_valid():
@@ -289,13 +273,7 @@ def addfriends(request):
 # DISPLAYS INFORMATION ABOUT A SPECIFIC TAG
 def tagpage(request, tagid):
 
-    try:
-        extra = Extra.objects.get(user=request.user)
-        extrapic = extra.profileimage.url
-        bio = extra.bio
-    except:
-        extrapic = False
-        bio = ""
+    extrapic, bio = getextra(request)
     tag = Tag.objects.get(id=tagid)
     if tag.owner == request.user:
         permission = True
@@ -383,26 +361,14 @@ def homepage(request):
     oldtags = Tag.objects.filter(
         created__lte=timezone.now() + datetime.timedelta(days=-1))
     oldtags.delete()
-    try:
-        extra = Extra.objects.get(user=request.user)
-        extrapic = extra.profileimage.url
-        bio = extra.bio
-    except:
-        extrapic = False
-        bio = ""
+    extrapic, bio = getextra(request)
     return render(request, "tags/homepage.html", {'extrapic': extrapic})
 
 
 # USER HOMEPAGE IF THEY ARE LOGGED IN
 def user_homepage(request):
     # GET EXTRA PROFILE INFO
-        try:
-            extra = Extra.objects.get(user=request.user)
-            extrapic = extra.profileimage.url
-            bio = extra.bio
-        except:
-            extrapic = False
-            bio = ""
+        extrapic, bio = getextra(request)
 
 # REDIRECT IF NOT LOGGED IN
         if request.user.id is None:
@@ -492,13 +458,8 @@ def user_homepage(request):
 
 # SIGN UP PAGE USING DEFAULT FORM PAGE
 def sign_up(request):
-    try:
-        extra = Extra.objects.get(user__username=request.user.username)
-        extrapic = extra.profileimage.url
-        bio = extra.bio
-    except:
-        extrapic = False
-        bio = ""
+    extrapic, bio = getextra(request)
+
     if request.method == "POST":
         form = UserCreate(request.POST)
         if form.is_valid():

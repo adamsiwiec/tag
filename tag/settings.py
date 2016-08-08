@@ -130,7 +130,7 @@ STATICFILES_DIRS = (
 )
 MEDIA_ROOT = os.path.join(BASE_DIR, 'tags/images')
 # MEDIA_ROOT = "/Users/adamsiwiec/Desktop/Tag/tag/tags/images/"
-#MEDIA_URL = "/images/"
+# MEDIA_URL = "/images/"
 
 # Update database configuration with $DATABASE_URL.
 import dj_database_url
@@ -141,7 +141,7 @@ DATABASES['default'].update(db_from_env)
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 
-#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
@@ -164,7 +164,7 @@ STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
 
 # Tell the staticfiles app to use S3Boto storage when writing the collected static files (when
 # you run `collectstatic`).
-#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 STATICFILES_LOCATION = 'static'
 MEDIAFILES_LOCATION = 'media'
