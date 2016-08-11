@@ -358,9 +358,9 @@ def tagpage(request, tagid):
 # DELETES OLD USERS AND DISPLAY'S LANDING PAGE,
 # MIGHT DELETE IF THIS IS INEFFICIENT
 def homepage(request):
-    oldtags = Tag.objects.filter(
-        created__lte=timezone.now() + datetime.timedelta(days=-1))
-    oldtags.delete()
+    # oldtags = Tag.objects.filter(
+    #    created__lte=timezone.now() + datetime.timedelta(days=-1))
+    # oldtags.delete()
     extrapic, bio = getextra(request)
     return render(request, "tags/homepage.html", {'extrapic': extrapic})
 
