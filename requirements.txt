@@ -6,9 +6,9 @@ celery==3.1.23
 dj-database-url==0.4.1
 Django==1.10
 django-crispy-forms==1.6.0
-django-filter==0.13.0
+django-filter==0.14.0
 django-storages==1.5.0
-djangorestframework==3.4.1
+djangorestframework==3.4.4
 gunicorn==19.6.0
 kombu==3.0.35
 Markdown==2.6.6
@@ -16,4 +16,5 @@ Pillow==3.3.0
 psycopg2==2.6.2
 pytz==2016.6.1
 redis==2.10.5
-whitenoise==3.2
+vine==1.1.1
+whitenoise==3.2.1
