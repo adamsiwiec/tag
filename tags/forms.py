@@ -50,10 +50,10 @@ class UserCreate(UserCreationForm):
                              widget=forms.TextInput(
                                  attrs={'placeholder': ' johndoe@example.com'}))
 
-
-class Meta:
-    model = User
-    fields = ['first_name', 'last_name', 'username', 'email']
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email']
+        exclude = ('username.help_text', 'password2.help_text')
 
     def __init__(self, *args, **kwargs):
         super(UserCreate, self).__init__(*args, **kwargs)
@@ -65,15 +65,15 @@ class Meta:
     helper.form_method = 'POST'
     helper.form_class = 'col-lg-8  col-lg-offset-2'
     helper.layout = Layout(
-        'first_name',
-        'last_name',
-        'username',
-        'email',
-        'password1',
-        'password2',
-        FormActions(Submit('Create', 'Create', css_class="btn-primary"))
+       'first_name',
+       'last_name',
+       'username',
+       'email',
+       'password1',
+       'password2',
+       FormActions(Submit('Create', 'Create', css_class="btn-primary"))
 
-    )
+      )
 
 
 # CREATES A TAG
