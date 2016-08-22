@@ -187,10 +187,9 @@ def view_homepage(request, username):
     try:
         if models.Friendship.objects.get(friend__username=username) in my_friendslist:
             permission = True
-        else:
-            permission = False
     except:
-        return redirect("profile")
+        permission = False
+
 # CREATE A TEMPLATE COMPATIBLE LIST OF FRIENDS
     if len(newfriendslist) > 8:
         newfriendslist = ["You have {} new friends".format(len(newfriendslist))]

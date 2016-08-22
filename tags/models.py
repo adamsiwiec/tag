@@ -15,7 +15,6 @@ class Tag(models.Model):
     owner = models.ForeignKey(User,
                               on_delete=models.CASCADE,
                               related_name="owner")
-
     created = models.DateTimeField(default=timezone.now)
     original = models.ForeignKey(User,
                                  on_delete=models.CASCADE,

@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -153,9 +153,9 @@ AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
         'Cache-Control': 'max-age=94608000',
     }
 
-AWS_STORAGE_BUCKET_NAME = 'tagyourit'
-AWS_ACCESS_KEY_ID = 'AKIAIDO23IONYN4UVTDQ'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = env('S3_BUCKET', default='tagyourit')
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID', default='AKIAIDO23IONYN4UVTDQ')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY', default='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')
 
 # Tell django-storages that when coming up with the URL for an item in S3 storage, keep
 # it simple - just use this domain plus the path. (If this isn't set, things get complicated).
@@ -187,4 +187,4 @@ CELERY_RESULT_BACKEND = os.getenv('REDIS_URL', 'redis://localhost:6379')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'America/Chicago'
+CELERY_TIMEZONE = 'UTC'
