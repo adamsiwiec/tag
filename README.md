@@ -5,6 +5,8 @@ The Social Media of Adjectives. Create and share unique tags (similar to hastags
 **[Currently Live here](https://tagyourit.herokuapp.com)**
 
 [![Build Status](https://travis-ci.org/adamSiwiec/tag.svg?branch=master)](https://travis-ci.org/adamSiwiec/tag)
+[![Code Climate](https://codeclimate.com/github/adamSiwiec/tag/badges/gpa.svg)](https://codeclimate.com/github/adamSiwiec/tag)
+
 
 
 ### Getting Started
@@ -74,4 +76,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 * Thanks to ZB, Jerome, and Edgar
 * Also thanks to Django
-
