@@ -6,6 +6,7 @@ The Social Media of Adjectives. Create and share unique tags (similar to hastags
 
 [![Build Status](https://travis-ci.org/adamSiwiec/tag.svg?branch=master)](https://travis-ci.org/adamSiwiec/tag)
 [![Code Climate](https://codeclimate.com/github/adamSiwiec/tag/badges/gpa.svg)](https://codeclimate.com/github/adamSiwiec/tag)
+[![Test Coverage](https://codeclimate.com/github/adamSiwiec/tag/badges/coverage.svg)](https://codeclimate.com/github/adamSiwiec/tag/coverage)
 
 
 
