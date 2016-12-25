@@ -2,7 +2,7 @@
 
 The Social Media of Adjectives. Create and share unique tags (similar to hastags or short phrases) with your friends and start a streak to rack up credits.
 
-**[Currently Live here](https://tagyourit.herokuapp.com)**
+**[Currently Live here](http://tag.siwiec.us)**
 
 [![Build Status](https://travis-ci.org/adamSiwiec/tag.svg?branch=master)](https://travis-ci.org/adamSiwiec/tag)
 [![Code Climate](https://codeclimate.com/github/adamSiwiec/tag/badges/gpa.svg)](https://codeclimate.com/github/adamSiwiec/tag)
