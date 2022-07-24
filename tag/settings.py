@@ -151,7 +151,7 @@ DATABASES['default'].update(db_from_env)
 
 AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
-        'Cache-Control': 'max-age=94608000',
+        'Cache-Control': 'max-age=94600000',
     }
 
 AWS_STORAGE_BUCKET_NAME = env('S3_BUCKET', default='tagyourit')
