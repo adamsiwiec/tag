@@ -1,7 +1,7 @@
 amqp==1.4.9
 billiard==3.3.0.23
 boto==2.42.0
-celery==5.2.7
+celery==5.1.2
 dj-database-url==0.4.1
 Django==1.9.2
 django-crispy-forms==1.6.0
