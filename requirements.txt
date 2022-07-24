@@ -11,7 +11,7 @@ django-filter==0.14.0
 django-storages==1.5.0
 djangorestframework==3.4.4
 gunicorn==19.6.0
-kombu==3.0.37
+kombu==4.2.1
 Markdown==2.6.6
 Pillow==3.3.0
 psycopg2==2.9.3
