@@ -1,5 +1,5 @@
 amqp==1.4.9
-anyjson==0.3.3
+anyjson
 billiard==3.3.0.23
 boto==2.42.0
 celery==3.1.23
@@ -12,7 +12,7 @@ django-filter==0.14.0
 django-storages==1.5.0
 djangorestframework==3.4.4
 gunicorn==19.6.0
-kombu==3.0.35
+kombu==3.0.37
 Markdown==2.6.6
 Pillow==3.3.0
 psycopg2==2.6.2
