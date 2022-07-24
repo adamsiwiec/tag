@@ -1,0 +1,35 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+amqp = "==1.4.9"
+billiard = "==3.3.0.23"
+boto = "==2.42.0"
+celery = "==3.1.23"
+dj-database-url = "==0.4.1"
+django = "==1.9.2"
+django-crispy-forms = "==1.6.0"
+django-debug-toolbar = "==1.5"
+django-environ = "==0.4.0"
+django-filter = "==0.14.0"
+django-storages = "==1.5.0"
+djangorestframework = "==3.4.4"
+gunicorn = "==19.6.0"
+kombu = "==3.0.35"
+markdown = "==2.6.6"
+pillow = "==3.3.0"
+psycopg2 = "==2.6.2"
+pytz = "==2016.6.1"
+redis = "==2.10.5"
+six = "==1.10.0"
+sqlparse = "==0.2.1"
+vine = "==1.1.1"
+whitenoise = "==3.2.1"
+codeclimate-test-reporter = "==0.1.2"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
