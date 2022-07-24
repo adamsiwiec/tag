@@ -1,4 +1,3 @@
-amqp==1.4.9
 boto==2.42.0
 celery==5.1.2
 dj-database-url==0.4.1
